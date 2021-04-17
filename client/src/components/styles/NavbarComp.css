@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+.navbar__logoname{
+   font-family: 'Satisfy', cursive;
+   font-size: 25px;
+
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar__form{
+        margin-left: -4px !important;
+    }
+    .searchInp{
+        width: 165px !important;
+    }    
+    .navbar__logoname{
+        display: none;
+    }
+}

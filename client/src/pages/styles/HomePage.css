@@ -1,0 +1,53 @@
+.homepage__section,
+.homepage__editorChoice,
+.homepage__trending,
+.homepage__popular,
+.homepage__blog{
+    padding: 3em;
+}
+
+.homepage__section > p,
+.homepage__editorChoice > p,
+.homepage__trending > p,
+.homepage__popular > p,
+.homepage__blog > p{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.homepage__section > p > a,
+.homepage__editorChoice > p > a,
+.homepage__trending > p > a,
+.homepage__popular > p > a,
+.homepage__blog > p > a{
+    font-size: 20px;
+    color: blue;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .homepage__section,
+    .homepage__editorChoice,
+    .homepage__trending,
+    .homepage__popular,
+    .homepage__blog{
+        padding: 1em;
+    }
+    .homepage__section > p,
+    .homepage__editorChoice > p,
+    .homepage__trending > p,
+    .homepage__popular > p,
+    .homepage__blog > p
+    {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .homepage__section > p > a,
+    .homepage__editorChoice > p > a
+    .homepage__trending > p > a,
+    .homepage__popular > p > a,
+    .homepage__blog > p > a{
+        font-size: 16px;
+        color: blue;
+    }
+}

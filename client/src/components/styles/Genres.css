@@ -1,0 +1,21 @@
+
+.genres__main > div{
+	margin-bottom: 15px;
+	padding-bottom: 20px;
+}
+
+.genere__cat{
+	position: absolute;
+    top: 50%;
+    left: 14px;
+    right: 15px;
+    text-align: center;
+    background-color: rgba(0,0,0,.35);
+    padding: 15px 0 16px;
+    margin-top: -28px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 1.25;
+    color: #fff;
+}
