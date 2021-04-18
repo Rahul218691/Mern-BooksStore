@@ -1,11 +1,11 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link,withRouter} from 'react-router-dom'
 import Logo from '../images/logo.svg'
 import {logout} from '../actions/authActions';
 import {useSelector,useDispatch} from 'react-redux';
 import './styles/NavbarComp.css';
 
-const NavbarComp = () => {
+const NavbarComp = ({history}) => {
 
    const dispatch = useDispatch()
 
@@ -26,14 +26,18 @@ const NavbarComp = () => {
       <Link className="navbar-brand" to="/">
         <img src={Logo} alt="" width="35px"/> <span className="navbar__logoname">Evo-Books</span>
       </Link>
-      <form style={{marginLeft: '34%'}} className="navbar__form">
-      <div className="input-group">
-          <input type="text" className="form-control searchInp" placeholder="search book" />
-          <div className="input-group-append">
-            <span className="btn btn-primary" id="basic-addon2"><i className="fas fa-search"></i></span>
-          </div>
-        </div>
-      </form>
+      {
+        history.location.pathname !== '/login' && history.location.pathname !== '/register' && (
+          <form style={{marginLeft: '34%'}} className="navbar__form">
+            <div className="input-group">
+              <input type="text" className="form-control searchInp" placeholder="search book" />
+              <div className="input-group-append">
+                <span className="btn btn-primary" id="basic-addon2"><i className="fas fa-search"></i></span>
+              </div>
+            </div>
+          </form>
+          )
+      }
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -61,4 +65,4 @@ const NavbarComp = () => {
   )
 }
 
-export default NavbarComp
+export default withRouter(NavbarComp)

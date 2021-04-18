@@ -1,0 +1,42 @@
+.authorpage{
+	padding: 40px;
+}
+
+.authorpage__wrapper{
+	display: flex;
+}
+
+.authorpage__desc{
+	margin-left: 10px;
+}
+
+.authorpage__desc > p{
+	text-align: justify;
+}
+
+.authorpage__icons > p{
+	margin-bottom: 0;
+}
+
+.authorpage__icons > div{
+	display: flex;
+	justify-content: space-evenly;
+    align-items: center;
+}
+
+.authorpage__icons > div > span > i{
+	cursor: pointer;
+}
+
+.authorpage__books{
+	 display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+.authorpage__wrapper{
+	display: block;
+}
+}

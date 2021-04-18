@@ -28,7 +28,7 @@ const EditorChoice = () => {
 
 	return (
 		<div className="editorchoice">
-			<div className="editorchoice__wrapper">
+			<div className="editorchoice__wrapper text-center">
 				<Carousel responsive={responsive}>
 					<Card />
 					<Card />

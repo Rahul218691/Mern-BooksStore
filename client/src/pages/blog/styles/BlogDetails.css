@@ -1,0 +1,56 @@
+.blogdetails__heading > p > a{
+	color: blue;
+}
+
+.blogdetails__heading > p > a:hover{
+	text-decoration: underline;
+}
+
+.blogdetails__imgcontainer > img{
+	width: 100%;
+}
+
+
+.blogdetails__icons{
+	display: flex;
+    flex-direction: row;
+    padding: 10px 0 8px;
+    border-bottom: 1px solid #e5e5e5;
+    justify-content: space-around;
+    background: lightgrey;
+}
+
+.blogdetails__icons > span > i{
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.blogdetails__icons > span > i:hover{
+	color: blue;
+	font-size: 30px;
+	transition: 0.8s ease-in;
+}
+
+.blogdetails__description{
+	padding: 70px;
+}
+
+.blogdetails__description > p{
+	text-align: justify;
+	font-weight: bolder;
+}
+
+.similar__articles{
+	text-align: initial;
+    padding: 0.3em;
+}
+
+@media only screen and (max-width: 600px) {
+   .blogdetails__heading > h2{
+   	font-size: 20px;
+   }
+   .blogdetails__description{
+		padding: 20px;
+	}
+
+}
