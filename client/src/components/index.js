@@ -9,3 +9,5 @@ export {default as Trending} from './booksections/Trending';
 export {default as Popular} from './booksections/Popular';
 export {default as HomeBlog} from './HomeBlog';
 export {default as Footer} from './Footer';
+export {default as SimilarBooks} from './booksections/Similar';
+export {default as Comment} from './comments/Comment';

@@ -26,10 +26,8 @@ const LoginPage = ({location,history}) => {
     }
 
     useEffect(()=>{
-        if(userInfo && userInfo.isAdmin){
-            history.push('/admin/dashboard')
-        }else if(userInfo && !userInfo.isAdmin){
-            history.push('/dashboard')
+        if(userInfo){
+            history.push('/')
         }
     },[history,userInfo])
 

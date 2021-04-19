@@ -1,0 +1,76 @@
+.bookdetails__wrapper{
+	display: flex;
+}
+
+.bookdetails__author,
+.bookdetails__avgReview{
+	margin-top: 2px;
+	margin-right: 5px;
+}
+
+.downloadbtn{
+	background: #17a288;
+	color: white;
+}
+
+.readOnline{
+	background: white;
+    border: 1px solid;
+    margin-left: 10px;
+}
+
+.bookdetails__shareicons{
+	display: inline-block;
+	font-size: 22px;
+}
+
+.bookdetails__shareicons > span{
+	margin: 10px;
+	cursor: pointer;
+}
+
+.bookinfo{
+	display: flex;
+}
+
+.bookinfo > p{
+	margin-left: 5px;
+	font-size: 15px;
+	text-align: justify;
+}
+
+.bookdetails__description > p{
+	text-align: justify;
+}
+
+.tags{
+	background: white;
+	border: 1px solid #17a288;
+	border-radius: 15px;
+}
+
+.bookdetails__tags > span{
+	margin-right: 4px;
+}
+
+.tags:hover{
+	background: #17a288;
+	color: white;
+	transition: 0.2s ease;
+}
+
+.bookdetails__similar > p{
+	font-weight: bold;
+}
+
+.bookdetails__similar > p > a{
+	color: blue;
+}
+
+@media only screen and (max-width: 600px) {
+.bookdetails__author,
+.bookdetails__avgReview{
+	margin-top: 2px;
+	margin-right: 2px;
+}
+}
