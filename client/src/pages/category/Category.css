@@ -1,0 +1,27 @@
+.category__header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.category__header > button{
+	background: whitesmoke;
+}
+
+.category__header > button:hover{
+	background: #17a288;
+	transition: 0.8s ease;
+	color: white;
+}
+
+.category__radiobtn{
+	display: flex;
+	justify-content: space-around;
+}
+
+.category__books{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	padding: 15px;
+}

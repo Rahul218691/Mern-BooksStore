@@ -6,3 +6,4 @@ export {default as AdminDashboard} from './admin/Dashboard';
 export {default as BlogDetail} from './blog/BlogDetails';
 export {default as Author} from './AuthorPage';
 export {default as BookDetails} from './BookDetails';
+export {default as Category} from './category/Category';

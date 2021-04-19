@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
-import {Home,Login,Register,Dashboard,AdminDashboard,BlogDetail,Author,BookDetails} from './pages';
+import {Home,Login,Register,Dashboard,AdminDashboard,BlogDetail,Author,BookDetails,Category} from './pages';
 import {Nav} from './components';
 import PrivateRoute from './privateroutes/PrivateRoute';
 import AdminRoute from './privateroutes/AdminPrivate';
@@ -18,6 +18,7 @@ const App = () =>{
           <Route component={BlogDetail} path='/blog/details/:slug' exact/>
           <Route component={Author} path='/author/:authorname' exact/>
           <Route component={BookDetails} path='/book/details/:bookslug' exact/>
+          <Route component={Category} path='/book/:category' exact/>
       </Switch>
     </BrowserRouter>
   );
