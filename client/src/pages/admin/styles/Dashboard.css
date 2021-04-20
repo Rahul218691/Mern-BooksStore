@@ -1,0 +1,8 @@
+.dashboard__nav{
+	background: lightgray;
+}
+
+.dashboard__nav > button{
+	outline: none;
+	border:none;
+}

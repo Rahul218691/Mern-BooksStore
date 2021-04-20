@@ -16,6 +16,27 @@ const NavbarComp = ({history}) => {
   }
 
 
+  const adminLinks = () =>{
+    return (
+        <>
+          <li className="nav-item active">
+            <Link className="nav-link" to="/admin/dashboard">Dashboard</Link>
+          </li>
+        </>
+      )
+  }
+
+
+  const userLinks = () =>{
+    return (
+      <>
+          <li className="nav-item active">
+            <Link className="nav-link" to="/dashboard">Dashboard</Link>
+          </li>
+      </>
+    )
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark" 
     style={{
@@ -46,6 +67,7 @@ const NavbarComp = ({history}) => {
           {
             userInfo ? (
              <>
+              {userInfo && userInfo.isAdmin ? adminLinks() : userLinks()}
               <li className="nav-item active" onClick={logoutHandler}>
                 <Link className="nav-link" to="#">Logout</Link>
               </li>

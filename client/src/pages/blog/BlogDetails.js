@@ -4,6 +4,11 @@ import './styles/BlogDetails.css';
 import {Footer} from '../../components';
 
 const BlogDetails = () => {
+
+	const printPage = () =>{
+		window.print();
+	}
+
 	return (
 		<>
 		<div className="container-fluid">
@@ -20,7 +25,7 @@ const BlogDetails = () => {
 							<span><i className="fab fa-facebook-f"></i></span>
 							<span><i className="fab fa-instagram"></i></span>
 							<span><i className="far fa-envelope"></i></span>
-							<span><i className="fas fa-print"></i></span>
+							<span onClick={()=>printPage()}><i className="fas fa-print"></i></span>
 						</div>
 					</div>
 					<div className="blogdetails__description">

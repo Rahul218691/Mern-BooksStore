@@ -7,3 +7,5 @@ export {default as BlogDetail} from './blog/BlogDetails';
 export {default as Author} from './AuthorPage';
 export {default as BookDetails} from './BookDetails';
 export {default as Category} from './category/Category';
+export {default as CreateBlog} from './admin/CreateBlog';
+export {default as AddAuthor} from './admin/AddAuthor';
