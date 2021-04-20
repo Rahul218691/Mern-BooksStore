@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {Sidebar} from '../../components';
 import './styles/AddAuthor.css';
 import {useDropzone} from 'react-dropzone';
+import {Link} from 'react-router-dom';
 
 const AddAuthor = () => {
 
@@ -42,6 +43,7 @@ const AddAuthor = () => {
 			<Sidebar addWidth={addWidth} toggleWidth={toggleWidth}/>
 				<div className="addauthor__nav">
 	            	<button className="btn" style={{fontSize:'30px'}} onClick={()=>toggleWidth()}>&#9776;</button>
+	            	<Link to='#' className="float-right btn">Manage Authors</Link>
 	            </div>
 	            <div className="addauthor__main container-fluid mt-2">
 	            	<div className="addauthor__form row">
@@ -54,7 +56,8 @@ const AddAuthor = () => {
 	            					className="form-control"
 	            					value={author}
 	            					onChange={(e)=>setAuthor(e.target.value)}
-	            					id="authorName"/>
+	            					id="authorName"
+	            					/>
 	            				</div>
 	            				<div className="form-group">
 	            					<label>Author Description</label>

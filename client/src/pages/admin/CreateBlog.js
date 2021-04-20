@@ -35,11 +35,12 @@ const CreateBlog = () => {
 
  	const handleFormSubmit = (e) =>{
  		e.preventDefault();
- 		console.log(title,image,content)
+ 		console.log(title,image,content,author)
  		setImage(null);
  		setContent('');
  		setPreview(null);
  		setAuthor('');
+ 		setTitle('')
  	}
 
 	return (
@@ -66,7 +67,15 @@ const CreateBlog = () => {
 			            				value={author}
 			            				onChange={(e)=>setAuthor(e.target.value)}
 			            				className="form-control"
-			            				id="author"/>
+			            				id="author"
+			            				list="datalistauthor"/>
+			            				<datalist id="datalistauthor">
+	            						    <option value="Edge" />
+										    <option value="Firefox" />
+										    <option value="Chrome" />
+										    <option value="Opera" />
+										    <option value="Safari" />
+	            					</datalist>
 			            			</div>
 			            			<label>Blog Image</label>
 			            			<div {...getRootProps({className: 'dropzone'})}>
