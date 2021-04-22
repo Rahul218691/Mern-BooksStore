@@ -7,9 +7,14 @@ import {
   authenticateReducer
 } from './reducers/authReducers';
 
+import {
+	carousalListReducer
+} from './reducers/carousalReducer';
+
 
 const reducer = combineReducers({
-  userLogin:authenticateReducer
+  userLogin:authenticateReducer,
+  admincarousal:carousalListReducer
 });
 
 

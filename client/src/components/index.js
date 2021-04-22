@@ -12,3 +12,4 @@ export {default as Footer} from './Footer';
 export {default as SimilarBooks} from './booksections/Similar';
 export {default as Comment} from './comments/Comment';
 export {default as Sidebar} from './sidebar/Sidebar'
+export {default as CarousModal} from './modals/CarousalModal';

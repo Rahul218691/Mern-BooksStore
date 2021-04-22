@@ -1,12 +1,22 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './styles/HomePage.css';
 import {Carousal,Genres,EditorChoice,Trending,Popular,Footer,HomeBlog} from '../components';
 import {Link} from 'react-router-dom';
+import {useSelector,useDispatch} from 'react-redux';
+import {fetchFiles} from '../actions/carousalActions';
 
 const HomePage = () => {
+
+    const dispatch = useDispatch();
+    const {loading,carousal} = useSelector(state=>state.admincarousal);
+
+    useEffect(() => {
+        dispatch(fetchFiles())
+    }, [dispatch])
+
     return (
     <div className="homepage__container">
-     	<Carousal />
+     	<Carousal loading={loading} carousal={carousal}/>
      	<section className="container homepage__section">
      		<p>BROWSE GENRES <Link to='#'>(view all)</Link></p>
      		<Genres />

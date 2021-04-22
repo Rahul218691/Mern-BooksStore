@@ -1,0 +1,28 @@
+.addcarousal__nav{
+	background: lightgray;
+}
+
+.addcarousal__nav > button{
+	outline: none;
+	border:none;
+}
+
+.addcarousal__nav > a{
+	margin-top: 10px;
+	margin-right: 4px;
+	background-color: #17a288;
+	color: white;
+}
+
+.action__btns > span{
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.action__btns .fa-edit{
+	color: blue;
+}
+
+.action__btns .fa-trash-alt{
+	color: red;
+}

@@ -22,3 +22,7 @@ a:hover{
 .fa-google{
     color: black;
 }
+
+img{
+pointer-events: none;
+}

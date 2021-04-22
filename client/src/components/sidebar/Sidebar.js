@@ -7,6 +7,7 @@ const Sidebar = ({addWidth,toggleWidth}) => {
 		<div id="mySidenav" className="sidenav" style={{width:`${addWidth ? '250px' : '0'}`}}>
 			<Link to='#' className="closebtn" onClick={()=>toggleWidth()}>&times;</Link>
 			<Link to="/admin/dashboard">Dashboard</Link>
+			<Link to='/admin/carousal'>Carousal</Link>
 			<Link to="/admin/addauthor">Add Author</Link>
 			<Link to="/admin/createblog">Create Blog</Link>
 		</div>

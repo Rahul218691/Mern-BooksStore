@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const {errorHandler,notFound} = require('./middlewares/errorMiddleware');
 const connectDB = require('./config/db');
+const path = require('path');
 const app = express();
 
 
@@ -12,7 +13,8 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-app.use(helmet())
+app.use(helmet());
+app.use(express.static(path.join(__dirname,'public')));
 
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
@@ -23,6 +25,8 @@ app.get('/',(req,res) =>{
 })
 
 app.use('/api/auth',require('./routes/authRoutes'));
+app.use('/api',require('./routes/carousalRoutes'));
+
 app.use(notFound)
 app.use(errorHandler)
 
