@@ -1,92 +1,71 @@
-import React,{useState} from 'react'
-import {Sidebar} from '../../components';
+import React,{useState,useEffect} from 'react'
+import {Sidebar,AuthorModal,Paginate} from '../../components';
 import './styles/AddAuthor.css';
-import {useDropzone} from 'react-dropzone';
 import {Link} from 'react-router-dom';
+import {useDispatch,useSelector} from 'react-redux';
+import {fetchAuthors} from '../../actions/authorActions';
 
 const AddAuthor = () => {
-
+	const limitdata = 5;
+	const dispatch = useDispatch();
+	const {authors,numOfAuthors} = useSelector(state=>state.authorList);
 	const [addWidth,setAddWidth] = useState(false);
+	const [show, setShow] = useState(false);
+	const [pagi, setPagi] = useState(1);
 	const toggleWidth = () =>{
 		setAddWidth(!addWidth)
 	}
 
-	const {getInputProps,getRootProps,isDragActive} = useDropzone({
-		accept: 'image/jpeg, image/png, image/jpg',
-		maxFiles:1,
-		maxSize:5242880,
-		onDrop:(acceptedFiles) =>{
-			setImage(acceptedFiles[0]);
-			setPreview(URL.createObjectURL(acceptedFiles[0]))
-		}
-	});
-
-
-
-	const [author, setAuthor] = useState('');
-	const [desc, setDesc] = useState('')
-	const [image, setImage] = useState(null);
-	const [preview, setPreview] = useState(null)
-
-
-	const handleSubmit = (e) =>{
-		e.preventDefault();
-		console.log(image,author,desc);
-		setDesc('');
-		setAuthor('');
-		setImage(null);
-		setPreview(null);
+	const handleOpen = () =>{
+		setShow(true)
 	}
+
+	const handleClose = () =>{
+		setShow(false)
+	}	
+
+	const paginate = (pageNumber) =>{
+		setPagi(pageNumber)
+	}
+
+	useEffect(() => {
+		dispatch(fetchAuthors(pagi,limitdata))
+	}, [dispatch,pagi])
 
 	return (
 		<div className="addauthor">
 			<Sidebar addWidth={addWidth} toggleWidth={toggleWidth}/>
 				<div className="addauthor__nav">
 	            	<button className="btn" style={{fontSize:'30px'}} onClick={()=>toggleWidth()}>&#9776;</button>
-	            	<Link to='#' className="float-right btn">Manage Authors</Link>
+	            	<Link to='#' className="float-right btn" onClick={()=>handleOpen()}>Add Authors</Link>
 	            </div>
 	            <div className="addauthor__main container-fluid mt-2">
-	            	<div className="addauthor__form row">
-	            		<div className="col-md-6 offset-md-3">
-	            			<h4 className="text-muted text-center">Add Author</h4>
-	            			<form onSubmit={handleSubmit}>
-	            				<div className="form-group">
-	            					<label htmlFor="authorName">Author Name</label>
-	            					<input type="text" placeholder="author name"
-	            					className="form-control"
-	            					value={author}
-	            					onChange={(e)=>setAuthor(e.target.value)}
-	            					id="authorName"
-	            					/>
-	            				</div>
-	            				<div className="form-group">
-	            					<label>Author Description</label>
-	            					<textarea className="form-control" placeholder="description"
-	            					value={desc}
-	            					onChange={(e)=>setDesc(e.target.value)}></textarea>
-	            				</div>
-		            			<label>Author Image</label>
-		            			<div {...getRootProps({className: 'dropzone'})}>
-		            				<input {...getInputProps()} />
-		            				{
-		            					isDragActive ? <p>Drop author Image Here...</p> : <p>Drag and Drop image here || click to choose file</p>
-		            				}
-		            			</div>
-		            			{
-		            				preview && (
-		            					<>
-		            					<p className="text-muted mb-0">Preview Image:</p>
-		            					<img src={preview} width='300px' alt="" className="img-fluid"/>
-		            					</>
-		            				)
-		            			}	
-		            			<div className="mb-2 mt-2">
-		            				<button className="btn btn-warning">Add Author</button>
-		            			</div>            				
-	            			</form>
-	            		</div>
-	            	</div>
+	            	<table className="table table-bordered table-responsive-md">
+					  <thead>
+					    <tr>
+					      <th scope="col">Name</th>
+					      <th scope="col">Description</th>
+					      <th scope="col">Image</th>
+					      <th scope="col">Actions</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    {
+					    	authors && authors.map((author,i) =>(
+								<tr key={i}>
+							      <td>{author.name}</td>
+							      <td>{author.description}</td>
+							      <td style={{cursor:'pointer'}}><img src={author.image} alt="" className="img-fluid" width="100" height="100"/></td>
+							      <td className="action__btns"><span><i className="far fa-edit"></i></span><span><i className="far fa-trash-alt"></i></span></td>
+							    </tr>
+					    	))
+					    }
+					  </tbody>
+					</table>
+					<Paginate totalRec={numOfAuthors} perPage={5} paginate={paginate} pagi={pagi}/>
 	            </div>
+	            <AuthorModal show={show} handleClose={handleClose}/>
+
 		</div>
 	)
 }

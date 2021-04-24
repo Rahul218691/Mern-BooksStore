@@ -18,3 +18,7 @@
 	background-color: #17a288;
 	color: white;
 }
+
+.action__btns > span{
+	margin-right: 3px;
+}

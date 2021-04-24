@@ -15,10 +15,15 @@ import {
   genereListReducer
 } from './reducers/genreReducers';
 
+import {
+  authorListReducer
+} from './reducers/authorReducer';
+
 const reducer = combineReducers({
   userLogin:authenticateReducer,
   admincarousal:carousalListReducer,
-  genresList:genereListReducer
+  genresList:genereListReducer,
+  authorList:authorListReducer
 });
 
 

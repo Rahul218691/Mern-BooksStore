@@ -1,8 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const Pagination = ({paginate,totalRec,pagi}) => {
-	const perPage = 12;
+const Pagination = ({paginate,totalRec,pagi,perPage}) => {
+	 perPage = perPage ? perPage : 12;
+	 // console.log(perPage)
 	const pageNumbers=[];
 	for(let i=1;i<=Math.ceil(totalRec/perPage);i++){
 		pageNumbers.push(i);

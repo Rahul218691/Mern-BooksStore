@@ -27,6 +27,8 @@ app.get('/',(req,res) =>{
 app.use('/api/auth',require('./routes/authRoutes'));
 app.use('/api',require('./routes/carousalRoutes'));
 app.use('/api/genre',require('./routes/genreRoutes'));
+app.use('/api/author',require('./routes/authorRoutes'));
+
 
 app.use(notFound)
 app.use(errorHandler)

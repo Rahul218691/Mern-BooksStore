@@ -14,5 +14,6 @@ export {default as Comment} from './comments/Comment';
 export {default as Sidebar} from './sidebar/Sidebar'
 export {default as CarousModal} from './modals/CarousalModal';
 export {default as GenreModal} from './modals/GenreModal';
+export {default as AuthorModal} from './modals/AuthorModal';
 export {default as Loader} from './SmallLoader';
 export {default as Paginate} from './Pagination';
