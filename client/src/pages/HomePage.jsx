@@ -4,14 +4,17 @@ import {Carousal,Genres,EditorChoice,Trending,Popular,Footer,HomeBlog} from '../
 import {Link} from 'react-router-dom';
 import {useSelector,useDispatch} from 'react-redux';
 import {fetchFiles} from '../actions/carousalActions';
+import {fetchGenres} from '../actions/genreActions';
 
 const HomePage = () => {
 
     const dispatch = useDispatch();
     const {loading,carousal} = useSelector(state=>state.admincarousal);
+    const {loading:{genreloading},genres} = useSelector(state=>state.genresList);
 
     useEffect(() => {
         dispatch(fetchFiles())
+        dispatch(fetchGenres(1))
     }, [dispatch])
 
     return (
@@ -19,7 +22,7 @@ const HomePage = () => {
      	<Carousal loading={loading} carousal={carousal}/>
      	<section className="container homepage__section">
      		<p>BROWSE GENRES <Link to='#'>(view all)</Link></p>
-     		<Genres />
+     		<Genres loading={genreloading} genres={genres}/>
      	</section>
      	<section className="container homepage__editorChoice">
      		<p>EDITOR'S CHOICE <Link to='#'>(view all)</Link></p>

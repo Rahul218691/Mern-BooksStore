@@ -10,3 +10,4 @@ export {default as Category} from './category/Category';
 export {default as CreateBlog} from './admin/CreateBlog';
 export {default as AddAuthor} from './admin/AddAuthor';
 export {default as AddCarousal} from './admin/AddCarousal';
+export {default as Genere} from './admin/Genere';

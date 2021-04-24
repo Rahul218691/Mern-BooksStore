@@ -8,6 +8,7 @@ const Sidebar = ({addWidth,toggleWidth}) => {
 			<Link to='#' className="closebtn" onClick={()=>toggleWidth()}>&times;</Link>
 			<Link to="/admin/dashboard">Dashboard</Link>
 			<Link to='/admin/carousal'>Carousal</Link>
+			<Link to='/admin/genere'>Genere</Link>
 			<Link to="/admin/addauthor">Add Author</Link>
 			<Link to="/admin/createblog">Create Blog</Link>
 		</div>

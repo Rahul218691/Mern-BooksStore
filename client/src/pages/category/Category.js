@@ -47,7 +47,7 @@ const Category = () => {
 		<div className="category container mt-4">
 			<div className="category__header">
 				<h4 className="text-muted">Category Name</h4>
-				<button className="btn" onClick={()=>setShow(!show)}><i className="fas fa-filter"></i> Filter</button>
+				<button className="btn" onClick={()=>setShow(!show)}><i className="fas fa-filter"></i> {!show ? 'Filter' : 'Hide Filter'}</button>
 			</div>
 			{
 				show && (

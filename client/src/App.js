@@ -1,7 +1,7 @@
 import React from 'react'
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import {Home,Login,Register,Dashboard,AdminDashboard,BlogDetail,Author,BookDetails,Category
-,CreateBlog,AddAuthor,AddCarousal} from './pages';
+,CreateBlog,AddAuthor,AddCarousal,Genere} from './pages';
 import {Nav} from './components';
 import PrivateRoute from './privateroutes/PrivateRoute';
 import AdminRoute from './privateroutes/AdminPrivate';
@@ -23,6 +23,7 @@ const App = () =>{
           <AdminRoute component={CreateBlog} path='/admin/createblog' exact/>
           <AdminRoute component={AddAuthor} path='/admin/addauthor' exact/>
           <AdminRoute component={AddCarousal} path='/admin/carousal' exact/>
+          <AdminRoute component={Genere} path='/admin/genere' exact/>
       </Switch>
     </BrowserRouter>
   );

@@ -11,10 +11,14 @@ import {
 	carousalListReducer
 } from './reducers/carousalReducer';
 
+import {
+  genereListReducer
+} from './reducers/genreReducers';
 
 const reducer = combineReducers({
   userLogin:authenticateReducer,
-  admincarousal:carousalListReducer
+  admincarousal:carousalListReducer,
+  genresList:genereListReducer
 });
 
 
