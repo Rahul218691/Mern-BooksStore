@@ -4,7 +4,8 @@ const {
 	fetchBlogs,
 	fetchBlog,
 	uploadBlog,
-	deleteBlog
+	deleteBlog,
+    viewCount
 } = require('../controllers/blogController');
 
 const multer = require('multer');
@@ -24,6 +25,7 @@ const upload = multer({storage});
 
 router.get('/allblogs',fetchBlogs);
 router.get('/:slug',fetchBlog);
+router.get('/view/:slug',viewCount);
 router.post('/addblog',protect,admin,upload.single('blog'),uploadBlog);
 router.delete('/removeblog',protect,admin,deleteBlog);
 

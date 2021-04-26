@@ -58,6 +58,17 @@ const uploadBlog = asyncHandler(async(req,res) =>{
 	});
 });
 
+
+const viewCount = asyncHandler(async(req,res) =>{
+	const {slug} = req.params;
+	await Blog.findOneAndUpdate({slug},{
+		$inc:{
+			'views':1
+		}
+	});
+	res.json({});
+});
+
 const deleteBlog = asyncHandler(async(req,res) =>{
 
 });
@@ -67,5 +78,6 @@ module.exports = {
 	fetchBlogs,
 	fetchBlog,
 	uploadBlog,
-	deleteBlog
+	deleteBlog,
+	viewCount
 }

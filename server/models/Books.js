@@ -10,7 +10,7 @@ const bookSchema = new mongoose.Schema({
 	},
 	bookauthor:{
 		type:ObjectId,
-		ref:'User',
+		ref:'author',
 		required:true
 	},
 	image:{
@@ -53,8 +53,9 @@ const bookSchema = new mongoose.Schema({
 		required:true
 	},
 	genreSlug:{
-		type:String
-		required:true
+		type:ObjectId
+		required:true,
+		ref:'Genre'
 	}
 },{
 	timestamps:true

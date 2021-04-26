@@ -6,6 +6,7 @@ import Popular from './BlogPopular';
 import {fetchBlog,fetchBlogs} from '../../actions/blogActions';
 import {useDispatch,useSelector} from 'react-redux';
 import Moment from 'react-moment';
+import {increamentView} from '../../utils/api';
 
 const BlogDetails = () => {
 	const dispatch = useDispatch();
@@ -18,9 +19,14 @@ const BlogDetails = () => {
 		window.print();
 	}
 
+	const viewCount = async(slug) =>{
+		await increamentView(slug);
+	}
+
 	useEffect(() => {
 		dispatch(fetchBlog(slug))
 		dispatch(fetchBlogs(1,5))
+		viewCount(slug);
 	}, [slug,dispatch]);
 
 	useEffect(() => {
