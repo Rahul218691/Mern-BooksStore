@@ -5,16 +5,19 @@ import {Link} from 'react-router-dom';
 import {useSelector,useDispatch} from 'react-redux';
 import {fetchFiles} from '../actions/carousalActions';
 import {fetchGenres} from '../actions/genreActions';
+import {fetchBlogs} from '../actions/blogActions';
 
 const HomePage = () => {
 
     const dispatch = useDispatch();
     const {loading,carousal} = useSelector(state=>state.admincarousal);
     const {loading:{genreloading},genres} = useSelector(state=>state.genresList);
+    const {blogs} = useSelector(state=>state.blogs)
 
     useEffect(() => {
         dispatch(fetchFiles())
         dispatch(fetchGenres(1))
+        dispatch(fetchBlogs(1,5))
     }, [dispatch])
 
     return (
@@ -38,7 +41,7 @@ const HomePage = () => {
         </section>
         <section className="container homepage__blog">
             <p>FROM THE BLOG <Link to='#'>(view all)</Link></p>
-            <HomeBlog />
+            <HomeBlog blogs={blogs}/>
         </section>
         <Footer />
     </div>

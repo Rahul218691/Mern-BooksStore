@@ -49,7 +49,7 @@ const addAuthor = asyncHandler(async(req,res) =>{
 		image:fileUrl
 	});
 
-	const resultPerPage = 10;
+	const resultPerPage = 5;
 
 	const countDoc = await Author.countDocuments();
 	res.json({
@@ -59,12 +59,32 @@ const addAuthor = asyncHandler(async(req,res) =>{
 
 })
 
+const getAuthorNames = asyncHandler(async(req,res) =>{
+	const authors = await Author.find({}).select('-image -slug -description -createdAt -updatedAt -__v');
+	if(authors){
+		res.json(authors)
+	}
+})
+
+
+const getAuthorInfo = asyncHandler(async(req,res) =>{
+	const {slug} = req.params;
+	const author = await Author.findOne({slug});
+	if(!author){
+		res.status(400)
+		throw new Error('Author not found')
+	}
+	res.json(author)
+})
+
 const editAuthor = asyncHandler(async(req,res) =>{
 	
-})
+});
 
 module.exports = {
 getAuthors,
 getSingleAuthor,
-addAuthor
+addAuthor,
+getAuthorNames,
+getAuthorInfo
 }

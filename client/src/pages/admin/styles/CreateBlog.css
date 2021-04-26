@@ -15,3 +15,14 @@
 input::-webkit-calendar-picker-indicator {
   display: none;
 }
+
+.createBlog__nav > a{
+	margin-top: 10px;
+	margin-right: 4px;
+	background-color: #17a288;
+	color: white;
+}
+
+.descdata > p{
+	text-align: justify;
+}

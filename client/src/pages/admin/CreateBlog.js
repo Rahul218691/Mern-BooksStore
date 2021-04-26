@@ -1,47 +1,38 @@
-import React,{useState} from 'react'
-import {Sidebar} from '../../components';
+import React,{useState,useEffect} from 'react'
+import {Sidebar,BlogModal,Loading,Paginate} from '../../components';
 import './styles/CreateBlog.css';
-import {useDropzone} from 'react-dropzone';
-import {CKEditor} from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {Link} from 'react-router-dom';
+import {useSelector,useDispatch} from 'react-redux';
+import {fetchBlogs} from '../../actions/blogActions';
 
 const CreateBlog = () => {
 
-	const {getInputProps,getRootProps,isDragActive} = useDropzone({
-		accept: 'image/jpeg, image/png, image/jpg',
-		maxFiles:1,
-		maxSize:5242880,
-		onDrop:(acceptedFiles) =>{
-			setImage(acceptedFiles[0]);
-			setPreview(URL.createObjectURL(acceptedFiles[0]))
-		}
-	});
-
-	const [title, setTitle] = useState('');
-	const [image, setImage] = useState(null);
-	const [preview, setPreview] = useState(null)
+	const limitdata = 5;
+	const dispatch = useDispatch();
+	const {loading,blogs,numOfBlogs} = useSelector(state=>state.blogs);
 	const [addWidth,setAddWidth] = useState(false);
-	const [content, setContent] = useState('');
-	const [author, setAuthor] = useState('')
+	const [show, setShow] = useState(false);
+	const [pagi, setPagi] = useState(1);
 
 	const toggleWidth = () =>{
 		setAddWidth(!addWidth)
 	}
  	
- 	const handleChange = (e,editor) =>{
- 		const data = editor.getData();
- 		setContent(data)
- 	}
+	const handleOpen = () =>{
+		setShow(true)
+	}
 
- 	const handleFormSubmit = (e) =>{
- 		e.preventDefault();
- 		console.log(title,image,content,author)
- 		setImage(null);
- 		setContent('');
- 		setPreview(null);
- 		setAuthor('');
- 		setTitle('')
- 	}
+	const handleClose = () =>{
+		setShow(false)
+	}	
+
+	const paginate = (pageNumber) =>{
+		setPagi(pageNumber)
+	}
+
+	useEffect(() => {
+		dispatch(fetchBlogs(pagi,limitdata))
+	}, [dispatch,pagi])
 
 	return (
 		<>
@@ -49,62 +40,38 @@ const CreateBlog = () => {
 				 <Sidebar addWidth={addWidth} toggleWidth={toggleWidth}/>
 				<div className="createBlog__nav">
 	            	<button className="btn" style={{fontSize:'30px'}} onClick={()=>toggleWidth()}>&#9776;</button>
+	            	<Link to='#' className="float-right btn" onClick={()=>handleOpen()}>Create Blog</Link>
 	            </div>
 	            <div className="createBlog__main container-fluid mt-2">
-	            	<div className="createBlog__form row">
-	            		<div className="col-md-6 offset-md-3">
-	            			<h4 className="text-muted text-center">Create Blog</h4>
-			            		<form onSubmit={handleFormSubmit}>
-			            			<div className="form-group">
-			            				<label htmlFor="blogtitle">Title</label>
-			            				<input id="blogtitle" className="form-control" type="text" placeholder="blog title"
-			            				value={title}
-			            				onChange={(e)=>setTitle(e.target.value)}/>
-			            			</div>
-			            			<div className="form-group">
-			            				<label htmlFor="author">Author</label>
-			            				<input type="text" placeholder="author"
-			            				value={author}
-			            				onChange={(e)=>setAuthor(e.target.value)}
-			            				className="form-control"
-			            				id="author"
-			            				list="datalistauthor"/>
-			            				<datalist id="datalistauthor">
-	            						    <option value="Edge" />
-										    <option value="Firefox" />
-										    <option value="Chrome" />
-										    <option value="Opera" />
-										    <option value="Safari" />
-	            					</datalist>
-			            			</div>
-			            			<label>Blog Image</label>
-			            			<div {...getRootProps({className: 'dropzone'})}>
-			            				<input {...getInputProps()} />
-			            				{
-			            					isDragActive ? <p>Drop Blog Image Here...</p> : <p>Drag and Drop image here || click to choose file</p>
-			            				}
-			            			</div>
-			            			{
-			            				preview && (
-			            					<>
-			            					<p className="text-muted mb-0">Preview Image:</p>
-			            					<img src={preview} width='300px' alt="" className="img-fluid"/>
-			            					</>
-			            				)
-			            			}
-			            			<div className="mt-2">
-			            				<label>Blog Description</label>
-			            				<CKEditor editor={ClassicEditor}
-			            				data={content}
-			            				onChange={handleChange}/>
-			            			</div>
-			            			<div className="mt-2 mb-2">
-			            				<button className="btn btn-warning">Post Blog</button>
-			            			</div>
-			            		</form>
-	            		</div>
-	            	</div>
+	            {loading && <Loading />}
+	            	<table className="table table-bordered table-responsive-md">
+					  <thead>
+					    <tr>
+					      <th scope="col">Title</th>
+					      <th scope="col">Description</th>
+					      <th scope="col">Author</th>
+					      <th scope="col">Image</th>
+					      <th scope="col">Actions</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					   { 
+					    	blogs &&  blogs.map((blog,i) =>(
+					    		<tr key={i}>
+							      <td>{blog.title}</td>
+							      <td className="descdata" dangerouslySetInnerHTML={{ __html: blog.description }}></td>
+							      <td>{blog.author.name}</td>
+							      <td style={{cursor:'pointer'}}><img src={blog.image} alt="" className="img-fluid" width="100" height="100"/></td>
+							      <td className="action__btns"><span><i className="far fa-edit"></i></span><span><i className="far fa-trash-alt"></i></span></td>
+							    </tr>
+					    		))
+					    }
+					  </tbody>
+					</table>
+					<Paginate totalRec={numOfBlogs} perPage={5} paginate={paginate} pagi={pagi}/>
 	            </div>
+	      
+	            <BlogModal show={show} handleClose={handleClose}/>
 			</div>
 		</>
 	)

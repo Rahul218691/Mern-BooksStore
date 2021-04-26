@@ -16,14 +16,25 @@ import {
 } from './reducers/genreReducers';
 
 import {
-  authorListReducer
+  authorListReducer,
+  authornamesReducer,
+  authorDetailsReducer
 } from './reducers/authorReducer';
+
+import {
+  blogListReducer,
+  blogdetailsReducer
+} from './reducers/blogReducers';
 
 const reducer = combineReducers({
   userLogin:authenticateReducer,
   admincarousal:carousalListReducer,
   genresList:genereListReducer,
-  authorList:authorListReducer
+  authorList:authorListReducer,
+  authorNames:authornamesReducer,
+  blogs:blogListReducer,
+  blogdetails:blogdetailsReducer,
+  authordetails:authorDetailsReducer
 });
 
 

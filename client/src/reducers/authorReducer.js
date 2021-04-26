@@ -6,7 +6,15 @@ AUTHOR_FAILED,
 AUTHOR_REQUEST,
 AUTHOR_RESET,
 AUTHOR_EDIT,
-AUTHOR_CURRENTPAGE
+AUTHOR_CURRENTPAGE,
+GET_AUTHOR_NAMES_REQUEST,
+GET_AUTHOR_NAMES_SUCCESS,
+GET_AUTHOR_NAMES_FAILED,
+GET_AUTHOR_NAMES_RESET,
+GET_AUTHOR_DETAILS_REQUEST,
+GET_AUTHOR_DETAILS_SUCCESS,
+GET_AUTHOR_DETAILS_FAIL,
+GET_AUTHOR_DETAILS_RESET
 } from '../constants/authorConstants';
 
 
@@ -75,5 +83,36 @@ export const authorListReducer = (state=initialState,action) =>{
             }
         default:
             return state;
+    }
+}
+
+
+export const authornamesReducer = (state={},action) =>{
+    switch(action.type){
+        case GET_AUTHOR_NAMES_REQUEST:
+            return {loading:true}
+        case GET_AUTHOR_NAMES_SUCCESS:
+            return {loading:false,authorList:action.payload}
+        case GET_AUTHOR_NAMES_FAILED:
+            return {loading:false,error:action.payload}
+        case GET_AUTHOR_NAMES_RESET:
+            return {}
+        default:
+            return state;                     
+    }
+}
+
+export const authorDetailsReducer = (state={},action) =>{
+    switch(action.type){
+        case GET_AUTHOR_DETAILS_REQUEST:
+            return {loading:true}
+        case GET_AUTHOR_DETAILS_SUCCESS:
+            return {loading:false,authorinfo:action.payload}
+        case GET_AUTHOR_DETAILS_FAIL:
+            return {loading:false,error:action.payload}
+        case GET_AUTHOR_DETAILS_RESET:
+            return {}
+        default:
+            return state;                     
     }
 }
