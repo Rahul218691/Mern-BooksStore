@@ -30,6 +30,10 @@ const bookSchema = new mongoose.Schema({
 		type:Number,
 		default:0
 	},
+	price:{
+		type:Number,
+		default:0
+	},
 	comments:[
 		{
 			user:{
@@ -42,6 +46,10 @@ const bookSchema = new mongoose.Schema({
 				required:true,
 				trim:true
 			},
+			rating:{
+				type:Number,
+				default:0
+			},
 			commentedOn:{
 				type:Date,
 				default:Date.now()
@@ -52,8 +60,8 @@ const bookSchema = new mongoose.Schema({
 		type:String,
 		required:true
 	},
-	genreSlug:{
-		type:ObjectId
+	genre:{
+		type:ObjectId,
 		required:true,
 		ref:'Genre'
 	}

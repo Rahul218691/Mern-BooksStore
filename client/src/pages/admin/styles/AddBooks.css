@@ -1,0 +1,29 @@
+.addbooks__nav{
+	background: lightgray;
+}
+
+.addbooks__nav > button{
+	outline: none;
+	border:none;
+}
+
+.addbooks__nav > a{
+	margin-top: 10px;
+	margin-right: 4px;
+	background-color: #17a288;
+	color: white;
+}
+
+.addbooks__filter > input{
+	border-radius: 5px;
+    width: 20%;
+    height: 35px;	
+}
+
+@media only screen and (max-width: 600px) {
+.addbooks__filter > input{
+	border-radius: 5px;
+    width: 55%;
+    height: 30px;	
+}
+}

@@ -65,8 +65,16 @@ const deleteGenre = asynchandler(async(req,res) =>{
 });
 
 
+const genreNames = asynchandler(async(req,res) =>{
+	const genre = await Genre.find({}).select('-poster -genreSlug -createdAt -updatedAt -__v');
+	if(genre){
+		res.json(genre)
+	}
+})
+
 module.exports = {
 getGenres,
 addGenre,
-deleteGenre
+deleteGenre,
+genreNames
 }

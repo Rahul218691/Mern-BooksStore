@@ -1,18 +1,19 @@
 const router = require('express').Router();
 const {protect,admin} = require('../middlewares/authMiddleware');
-
 const {
-getGenres,
-addGenre,
-deleteGenre,
-genreNames
-// paginatedGenres
-} = require('../controllers/genreController');
+	getbooks,
+	getSingleBook,
+	uploadBook,
+	updateBook,
+	deleteBook
+} = require('../controllers/bookController');
+
+
 const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "./public/genres/")
+        cb(null, "./public/books/")
     },
     filename: function (req, file, cb) {
         const parts = file.mimetype.split("/");
@@ -22,15 +23,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.get('/getgenres',getGenres);
-
-router.get('/genrelist',genreNames)
-
-// router.get('/paginated/genres',paginatedGenres);
-
-router.post('/addgenre',protect,admin,upload.single('genres'),addGenre);
-
-router.delete('/genreremove/:id',protect,admin,deleteGenre);
-
+router.get('/allbooks',getbooks);
+router.get('/single/:slug',getSingleBook);
+router.post('/addbook',protect,admin,upload.single('evobook'),uploadBook);
+router.put('/editbook',protect,admin,updateBook);
+router.delete('/removebook/:id',protect,admin,deleteBook);
 
 module.exports = router;

@@ -11,6 +11,7 @@ const Sidebar = ({addWidth,toggleWidth}) => {
 			<Link to='/admin/genere'>Genere</Link>
 			<Link to="/admin/addauthor">Add Author</Link>
 			<Link to="/admin/createblog">Create Blog</Link>
+			<Link to="/admin/addbook">Add Books</Link>
 		</div>
 	)
 }

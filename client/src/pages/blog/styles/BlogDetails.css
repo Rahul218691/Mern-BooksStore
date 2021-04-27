@@ -27,7 +27,7 @@
 
 .blogdetails__icons > span > i:hover{
 	color: blue;
-	font-size: 30px;
+/*	font-size: 30px;*/
 	transition: 0.8s ease-in;
 }
 

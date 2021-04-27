@@ -1,8 +1,8 @@
 import React from 'react'
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import {Home,Login,Register,Dashboard,AdminDashboard,BlogDetail,Author,BookDetails,Category
-,CreateBlog,AddAuthor,AddCarousal,Genere} from './pages';
-import {Nav} from './components';
+,CreateBlog,AddAuthor,AddCarousal,Genere,AddBooks} from './pages';
+import {Nav,PdfViewer} from './components';
 import PrivateRoute from './privateroutes/PrivateRoute';
 import AdminRoute from './privateroutes/AdminPrivate';
 
@@ -24,6 +24,8 @@ const App = () =>{
           <AdminRoute component={AddAuthor} path='/admin/addauthor' exact/>
           <AdminRoute component={AddCarousal} path='/admin/carousal' exact/>
           <AdminRoute component={Genere} path='/admin/genere' exact/>
+          <AdminRoute component={AddBooks} path='/admin/addbook' exact/>
+          <Route component={PdfViewer} path='/file/view' exact/>
       </Switch>
     </BrowserRouter>
   );
