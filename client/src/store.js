@@ -26,6 +26,10 @@ import {
   blogdetailsReducer
 } from './reducers/blogReducers';
 
+import {
+  booksStoreReducer
+} from './reducers/bookReducer'
+
 const reducer = combineReducers({
   userLogin:authenticateReducer,
   admincarousal:carousalListReducer,
@@ -34,7 +38,8 @@ const reducer = combineReducers({
   authorNames:authornamesReducer,
   blogs:blogListReducer,
   blogdetails:blogdetailsReducer,
-  authordetails:authorDetailsReducer
+  authordetails:authorDetailsReducer,
+  books:booksStoreReducer
 });
 
 

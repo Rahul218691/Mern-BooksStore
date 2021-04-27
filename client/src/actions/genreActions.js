@@ -3,7 +3,8 @@ import {
 GENERE_CREATE,
 GENERE_FETCH,
 GENERE_FAILED,
-GENERE_REQUEST
+GENERE_REQUEST,
+GENERE_LIST
 } from '../constants/genreConstants';
 
 const BASEURL = 'http://localhost:5000/api/genre';
@@ -102,6 +103,36 @@ export const fetchGenres = (page) => async (dispatch) => {
       )
       dispatch({
         type: GENERE_FETCH,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: GENERE_FAILED,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+}  
+
+export const fetchGenresNames = () => async (dispatch) => {
+    try {
+      dispatch({
+        type:GENERE_REQUEST
+      });
+      
+      const config = {
+        headers: {
+         'Content-Type': 'application/json',
+        },
+      } 
+      const { data } = await axios.get(
+        `${BASEURL}/genrelist`,
+        config
+      )
+      dispatch({
+        type: GENERE_LIST,
         payload: data,
       })
     } catch (error) {

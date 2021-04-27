@@ -20,8 +20,8 @@ const getbooks = asyncHandler(async(req,res) =>{
 });
 
 const uploadBook = asyncHandler(async(req,res) =>{
-	const {booktitle,bookauthor,bookdescription,editorsChoice,genre} = req.body;
-	if(!booktitle || !bookdescription || !bookauthor || !genre){
+	const {booktitle,bookauthor,bookdescription,editorsChoice,genre,tags} = req.body;
+	if(!booktitle || !bookdescription || !bookauthor || !genre || !tags){
 		res.status(400)
 		throw new Error('Please Fill all the fields')
 	}
@@ -39,13 +39,16 @@ const uploadBook = asyncHandler(async(req,res) =>{
 		editorsChoice,
 		image:fileUrl,
 		bookSlug:slugify(title),
-		genre
+		genre,
+		tags
 	});
 	const resultPerPage = 12;
-
+	const data = await Book.findOne({_id:newBook._id})
+	.populate('bookauthor','_id name slug')
+	.populate('genre','_id title genreSlug');
 	const countDoc = await Book.countDocuments();
 	res.json({
-		books:newBook,
+		books:data,
 		pages:Math.ceil(countDoc / resultPerPage)
 	});
 });

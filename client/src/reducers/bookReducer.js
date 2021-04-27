@@ -1,79 +1,81 @@
 import {
-GENERE_CREATE,
-GENERE_FETCH,
-GENERE_DELETE,
-GENERE_FAILED,
-GENERE_REQUEST,
-GENERE_RESET,
-GENERE_CURRENTPAGE,
-GENERE_LIST
-} from '../constants/genreConstants';
+BOOK_CREATE,
+BOOK_FETCH,
+BOOK_DELETE,
+BOOK_FAILED,
+BOOK_REQUEST,
+BOOK_RESET,
+BOOK_EDIT,
+BOOK_SINGLE
+} from '../constants/bookConstants';
+
 
 
 const initialState = {
     loading:false,
-    genres:[],
-    genrelist:[],
+    books:[],
+    book:{},
     error:'',
     currentPage:1,
     pages:0,
-    numOfGenres:0
+    numOfBooks:0
 };
 
-export const genereListReducer = (state=initialState,action) =>{
+export const booksStoreReducer = (state=initialState,action) =>{
     switch (action.type) {
-       case GENERE_REQUEST:
+       case BOOK_REQUEST:
             return {...state,loading:true}
-       case GENERE_FETCH:
+       case BOOK_FETCH:
             return {
                     ...state,
                     loading:false,
-                    genres:action.payload.genres,
+                    books:action.payload.books,
                     currentPage:action.payload.currentPage,
                     pages:action.payload.pages,
-                    numOfGenres:action.payload.numOfGenres
+                    numOfBooks:action.payload.numOfBooks
                    }
-        case GENERE_CREATE:
+        case BOOK_CREATE:
             return{
                     ...state,
                     loading:false,
-                    genres:[...state.genres,action.payload.genres],
-                    numOfGenres:state.numOfGenres + 1,
+                    books:[...state.books,action.payload.books],
+                    numOfBooks:state.numOfBooks + 1,
                     pages:action.payload.pages
                   }
-        case GENERE_DELETE:
+        case BOOK_EDIT:
+        	return{
+        		...state,
+        		loading:false,
+        		books:[...state.books.map((book)=>(book._id === action.payload._id ? action.payload : book))]
+        	}
+        case BOOK_DELETE:
             return {
                 ...state,
                 loading:false,
-                genres:[...state.genres.filter(data=>data._id !== action.payload._id)],
-                numOfGenres:state.numOfGenres - 1,
+                books:[...state.books.filter(data=>data._id !== action.payload._id)],
+                numOfBooks:state.numOfBooks - 1,
                 pages:action.payload.pages
             }                         
-        case GENERE_FAILED:
+        case BOOK_FAILED:
             return{
                 ...state,
                 loading:false,
                 error:action.payload
             }    
-        case GENERE_RESET:
+        case BOOK_RESET:
             return{
                 ...state,
                 loading:false,
                 error:''
             }
-        case GENERE_CURRENTPAGE:
+        case BOOK_SINGLE:
             return{
                 ...state,
                 loading:false,
-                currentPage:state.currentPage + 1
-            }
-        case GENERE_LIST:
-            return{
-                ...state,
-                loading:false,
-                genrelist:action.payload
+                book:action.payload
             }
         default:
             return state;
     }
 }
+

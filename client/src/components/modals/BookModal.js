@@ -1,10 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {Modal,Button} from 'react-bootstrap';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {useDropzone} from 'react-dropzone';
+import {useDispatch,useSelector} from 'react-redux';
+import {uploadBook} from '../../actions/bookActions';
+import {fetchAuthorsNames} from '../../actions/authorActions';
+import {fetchGenresNames} from '../../actions/genreActions';
+import Select from 'react-select';
 
 const BookModal = ({show,handleClose}) => {
+
+	const dispatch = useDispatch();
+	const {authorList} = useSelector(state=>state.authorNames);
+	const {genrelist} = useSelector(state=>state.genresList);
 
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
@@ -12,7 +21,8 @@ const BookModal = ({show,handleClose}) => {
 	const [genre, setGenre] = useState('');
 	const [choice, setChoice] = useState(false);
 	const [image, setImage] = useState(null);
-	const [preview, setPreview] = useState(null)
+	const [preview, setPreview] = useState(null);
+	const [tags, setTags] = useState([]);
 
 	const handleChange = (e,editor) =>{
  		const data = editor.getData();
@@ -29,8 +39,28 @@ const BookModal = ({show,handleClose}) => {
 		}
 	});
 
+	const handleTagChange = (options) =>{
+		setTags(options);
+	}
+
+	useEffect(() => {
+		dispatch(fetchAuthorsNames());
+		dispatch(fetchGenresNames());
+	}, [dispatch])
+
 	const handleSubmit = () =>{
-		console.log(image,choice)
+		const formdata = new FormData();
+		const tagsList = tags.map((tag) =>{
+			return tag.value;
+		})
+		formdata.append('booktitle',title);
+		formdata.append('bookauthor',author);
+		formdata.append('bookdescription',content);
+		formdata.append('editorsChoice',choice);
+		formdata.append('genre',genre);
+		formdata.append('evobook',image);
+		formdata.append('tags',tagsList);
+		dispatch(uploadBook(formdata));
 		setImage(null);
 		setPreview(null);
 		setChoice(false);
@@ -38,9 +68,17 @@ const BookModal = ({show,handleClose}) => {
 		setContent('');
 		setAuthor('');
 		setGenre('');
+		setTags([]);
 		handleClose();
 	}
 
+	const newGenreObj = genrelist && genrelist.map((list) =>{
+		return{
+			value:list.genreSlug,
+			label:list.title
+		}
+	});
+		
 	return (
 		<>
 			<Modal show={show} onHide={handleClose}  
@@ -67,18 +105,35 @@ const BookModal = ({show,handleClose}) => {
 			        		<label>Author</label>
 			        		<select className="form-control" value={author}
 			        		 onChange={(e)=>setAuthor(e.target.value)}>
-			        			<option value="opt1">Opt1</option>
-			        			<option value="opt2">Opt1</option>
+			        		 <option value="">Choose Author</option>
+            				{
+            					authorList && authorList.map((author,i) =>(
+            							<option key={i} value={author._id}>{author.name}</option>
+            						))
+            				}
 			        		</select>
 			        	</div>
 			        	<div className="form-group">
 			        		<label>Genre</label>
 			        		<select className="form-control" value={genre}
 			        		 onChange={(e)=>setGenre(e.target.value)}>
-			        			<option value="opt1">Opt1</option>
-			        			<option value="opt2">Opt1</option>
+			        		  <option value="">Choose Genre</option>
+            				{
+            					genrelist && genrelist.map((genre,i) =>(
+            							<option key={i} value={genre._id}>{genre.title}</option>
+            						))
+            				}
 			        		</select>
 			        	</div>	
+			        	<div className="form-group">
+			        		<label>Tags</label>
+			        		<Select isMulti value={tags}
+			        		onChange={handleTagChange}
+			        		name="tags"
+			        		className="basic-multi-select"
+			        		classNamePrefix="select"
+			        		options={newGenreObj}/>
+			        	</div>
 		        		 <div className="form-check">
 						  <input className="form-check-input" type="checkbox" value={choice}
 						  onChange={(e)=>setChoice(e.target.checked)}
