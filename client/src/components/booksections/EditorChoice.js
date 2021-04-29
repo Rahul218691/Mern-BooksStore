@@ -4,8 +4,9 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Card from './Card';
 
-const EditorChoice = () => {
+const EditorChoice = ({editorsbook}) => {
 
+		// console.log(editorsbook)
 	const responsive = {
 	  superLargeDesktop: {
 	    // the naming can be any, depends on you.
@@ -30,11 +31,11 @@ const EditorChoice = () => {
 		<div className="editorchoice">
 			<div className="editorchoice__wrapper text-center">
 				<Carousel responsive={responsive}>
-					<Card />
-					<Card />
-					<Card />
-					<Card />
-					<Card />
+					{
+						editorsbook !== undefined ? editorsbook.map((book,i) =>(
+								<Card data={book} key={i}/>
+							)) : <Card />
+					}
 				</Carousel>
 			</div>
 		</div>

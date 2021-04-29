@@ -4,12 +4,12 @@ import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {useDropzone} from 'react-dropzone';
 import {useDispatch,useSelector} from 'react-redux';
-import {uploadBook} from '../../actions/bookActions';
+import {uploadBook,uploadPdffile} from '../../actions/bookActions';
 import {fetchAuthorsNames} from '../../actions/authorActions';
 import {fetchGenresNames} from '../../actions/genreActions';
 import Select from 'react-select';
 
-const BookModal = ({show,handleClose}) => {
+const BookModal = ({show,handleClose,open,handleHide,id}) => {
 
 	const dispatch = useDispatch();
 	const {authorList} = useSelector(state=>state.authorNames);
@@ -23,6 +23,7 @@ const BookModal = ({show,handleClose}) => {
 	const [image, setImage] = useState(null);
 	const [preview, setPreview] = useState(null);
 	const [tags, setTags] = useState([]);
+	const [pdf, setPDF] = useState(null)
 
 	const handleChange = (e,editor) =>{
  		const data = editor.getData();
@@ -78,6 +79,14 @@ const BookModal = ({show,handleClose}) => {
 			label:list.title
 		}
 	});
+
+	const handleFileUpload = () =>{
+		const formdata1 = new FormData();
+		formdata1.append('id',id);
+		formdata1.append('bookpdf',pdf);
+		dispatch(uploadPdffile(formdata1))
+		handleHide();
+	}
 		
 	return (
 		<>
@@ -167,6 +176,30 @@ const BookModal = ({show,handleClose}) => {
 			          </Button>
 			        </Modal.Footer>
 			</Modal>
+
+			<Modal show={open} onHide={handleHide}
+		            backdrop="static"
+	        		keyboard={false}>
+		        <Modal.Header closeButton>
+		          <Modal.Title>Upload BookPDF</Modal.Title>
+		        </Modal.Header>
+		        <Modal.Body>
+		        	<div className="form-group">
+		        		<label>Choose File</label>
+		        		<input type="file" 
+		        		className="form-control"
+		        		onChange={(e)=>setPDF(e.target.files[0])} accept="application/pdf" required/>
+		        	</div>
+		        </Modal.Body>
+		        <Modal.Footer>
+		          <Button variant="secondary" onClick={handleHide}>
+		            Close
+		          </Button>
+		          <Button variant="primary" onClick={handleFileUpload}>
+		            Submit
+		          </Button>
+		        </Modal.Footer>
+		    </Modal>
 		</>	
 	)
 }

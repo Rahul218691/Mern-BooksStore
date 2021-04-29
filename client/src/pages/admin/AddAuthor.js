@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {Sidebar,AuthorModal,Paginate} from '../../components';
+import {Sidebar,AuthorModal,Paginate,Loading} from '../../components';
 import './styles/AddAuthor.css';
 import {Link} from 'react-router-dom';
 import {useDispatch,useSelector} from 'react-redux';
@@ -8,7 +8,7 @@ import {fetchAuthors} from '../../actions/authorActions';
 const AddAuthor = () => {
 	const limitdata = 5;
 	const dispatch = useDispatch();
-	const {authors,numOfAuthors} = useSelector(state=>state.authorList);
+	const {authors,numOfAuthors,loading} = useSelector(state=>state.authorList);
 	const [addWidth,setAddWidth] = useState(false);
 	const [show, setShow] = useState(false);
 	const [pagi, setPagi] = useState(1);
@@ -40,6 +40,7 @@ const AddAuthor = () => {
 	            	<Link to='#' className="float-right btn" onClick={()=>handleOpen()}>Add Authors</Link>
 	            </div>
 	            <div className="addauthor__main container-fluid mt-2">
+	            {loading && <Loading />}
 	            	<table className="table table-bordered table-responsive-md">
 					  <thead>
 					    <tr>

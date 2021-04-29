@@ -6,7 +6,16 @@ BOOK_FAILED,
 BOOK_REQUEST,
 BOOK_RESET,
 BOOK_EDIT,
-BOOK_SINGLE
+BOOK_SINGLE,
+NEWARRIVAL_REQUEST,
+NEWARRIVAL_SUCCESS,
+NEWARRIVAL_FAIL,
+EDITORS_BOOKS_REQUEST,
+EDITORS_BOOKS_SUCCESS,
+EDITORS_BOOKS_FAIL,
+CLASSICS_BOOKS_REQUEST,
+CLASSICS_BOOKS_SUCCESS,
+CLASSICS_BOOKS_FAIL
 } from '../constants/bookConstants';
 
 
@@ -79,3 +88,42 @@ export const booksStoreReducer = (state=initialState,action) =>{
     }
 }
 
+
+export const editorsBookReducer = (state={},action) =>{
+    switch(action.type){
+        case EDITORS_BOOKS_REQUEST:
+            return {loading:true}
+        case EDITORS_BOOKS_SUCCESS:
+            return {loading:false,editorsbook:action.payload.book}
+        case EDITORS_BOOKS_FAIL:
+            return {loading:false,error:action.payload}
+        default:
+            return state;                     
+    }
+}
+
+export const newArrivalsReducer = (state={},action) =>{
+    switch(action.type){
+        case NEWARRIVAL_REQUEST:
+            return {loading:true}
+        case NEWARRIVAL_SUCCESS:
+            return {loading:false,newarrival:action.payload.book}
+        case NEWARRIVAL_FAIL:
+            return {loading:false,error:action.payload}
+        default:
+            return state;                     
+    }
+}
+
+export const classicsBookReducer = (state={},action) =>{
+    switch(action.type){
+        case CLASSICS_BOOKS_REQUEST:
+            return {loading:true}
+        case CLASSICS_BOOKS_SUCCESS:
+            return {loading:false,classics:action.payload}
+        case CLASSICS_BOOKS_FAIL:
+            return {loading:false,error:action.payload}
+        default:
+            return state;                     
+    }
+}

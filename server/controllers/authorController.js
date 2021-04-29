@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Author = require('../models/Author');
 const slugify = require('slugify')
+const Book = require('../models/Books');
 
 const getAuthors = asyncHandler(async(req,res) =>{
 	const page = parseInt(req.query.page) || 1;
@@ -74,7 +75,13 @@ const getAuthorInfo = asyncHandler(async(req,res) =>{
 		res.status(400)
 		throw new Error('Author not found')
 	}
-	res.json(author)
+	const books = await Book.find({bookauthor:author._id})
+	.select('-bookdescription -comments -createdAt -updatedAt -__v -file -editorsChoice -downloads -publish -tags -genre -bookauthor');
+	// console.log(books)
+	res.json({
+		author:author,
+		books:books
+	})
 })
 
 const editAuthor = asyncHandler(async(req,res) =>{

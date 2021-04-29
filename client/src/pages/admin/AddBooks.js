@@ -3,7 +3,7 @@ import {Sidebar,BookModal,Loading,Paginate} from '../../components';
 import {Link} from 'react-router-dom';
 import './styles/AddBooks.css';
 import {useDispatch,useSelector} from 'react-redux';
-import {fetchBooks} from '../../actions/bookActions';
+import {fetchBooks,publishBooks} from '../../actions/bookActions';
 
 const AddBooks = () => {
 	const limitdata = 12;
@@ -12,6 +12,8 @@ const AddBooks = () => {
 	const [addWidth,setAddWidth] = useState(false);
 	const [show, setShow] = useState(false);
 	const [pagi, setPagi] = useState(1);
+	const [open, setOpen] = useState(false);
+	const [id, setId] = useState('');
 	const toggleWidth = () =>{
 		setAddWidth(!addWidth)
 	}
@@ -20,13 +22,21 @@ const AddBooks = () => {
 		setShow(false)
 	}
 
+	const handleHide = () =>{
+		setOpen(false)
+	}
+
 	const paginate = (pageNumber) =>{
 		setPagi(pageNumber)
 	}
 
+	const bookpublish = (id) =>{
+		dispatch(publishBooks(id))
+	}
+
 	useEffect(() => {
-		dispatch(fetchBooks(pagi,limitdata));
-	}, [dispatch,pagi])
+		dispatch(fetchBooks(pagi,limitdata));// eslint-disable-next-line
+	}, [pagi])
 
 	return (
 		<div className="addbooks">
@@ -48,6 +58,8 @@ const AddBooks = () => {
 					      <th scope="col">Genre</th>
 					      <th scope="col">EditorChoice</th>
 					      <th scope="col">Image</th>
+					      <th scope="col">BookFile</th>
+					      <th scope="col">Publish</th>
 					      <th scope="col">Actions</th>
 					    </tr>
 					  </thead>
@@ -66,6 +78,25 @@ const AddBooks = () => {
 								      	)	
 								      }</td>
 								      <td style={{cursor:'pointer'}}><img src={book?.image} alt="" className="img-fluid" width="100" height="100"/></td>
+								      <td className="text-center">{
+								      	book?.file !== '' ? (
+								      		<i className="far fa-check-circle" style={{color:'green',fontSize:'30px'}}></i>
+								      	):(
+								      		<button className="btn btn-warning" onClick={()=>{
+								      			setOpen(true)
+								      			setId(book?._id)
+								      		}}>Upload Book</button>
+								      	)
+								      }</td>
+								      <td className="text-center">
+								      	{	
+								      		book?.publish ? (
+								      			<button className="btn btn-danger" onClick={()=>bookpublish(book?._id)}>UnPublish</button>
+								      		): (
+								      		<button className="btn btn-primary" onClick={()=>bookpublish(book?._id)}>Publish</button>
+								      		)
+								      	}
+								      </td>
 								     <td className="action__btns"><span><i className="far fa-edit"></i></span> <span><i className="far fa-trash-alt"></i></span></td>
 								    </tr>
 					    		))
@@ -73,7 +104,7 @@ const AddBooks = () => {
 					  </tbody>
 					</table>
 					<Paginate totalRec={numOfBooks} perPage={12} paginate={paginate} pagi={pagi}/>
-					<BookModal show={show} handleClose={handleClose}/>
+					<BookModal show={show} handleClose={handleClose} open={open} handleHide={handleHide} id={id}/>
 	            </div>
 		</div>
 	)

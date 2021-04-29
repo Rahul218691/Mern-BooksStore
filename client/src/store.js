@@ -27,7 +27,10 @@ import {
 } from './reducers/blogReducers';
 
 import {
-  booksStoreReducer
+  booksStoreReducer,
+  editorsBookReducer,
+  newArrivalsReducer,
+  classicsBookReducer
 } from './reducers/bookReducer'
 
 const reducer = combineReducers({
@@ -39,7 +42,10 @@ const reducer = combineReducers({
   blogs:blogListReducer,
   blogdetails:blogdetailsReducer,
   authordetails:authorDetailsReducer,
-  books:booksStoreReducer
+  books:booksStoreReducer,
+  newBooks:newArrivalsReducer,
+  editorBooks:editorsBookReducer,
+  classicBooks:classicsBookReducer
 });
 
 

@@ -9,7 +9,7 @@ import {useDispatch,useSelector} from 'react-redux';
 const AuthorPage = () => {
 
 	const dispatch = useDispatch();
-	const {authorinfo,loading} = useSelector(state=>state.authordetails);
+	const {authorinfo,loading,books} = useSelector(state=>state.authordetails);
 
 	const {authorname} = useParams();
 
@@ -45,11 +45,11 @@ const AuthorPage = () => {
 			<div className="authorpage__mybooks mt-4">
 				<h4>Books by {authorinfo?.name}</h4>
 				<div className="authorpage__books">
-					<Card />
-					<Card />
-					<Card />
-					<Card />
-					<Card />
+					{
+						books && books.map((book,i) =>(
+								<Card key={i} data={book}/>
+							))
+					}
 				</div>
 			</div>
 		</div>

@@ -107,7 +107,7 @@ export const authorDetailsReducer = (state={},action) =>{
         case GET_AUTHOR_DETAILS_REQUEST:
             return {loading:true}
         case GET_AUTHOR_DETAILS_SUCCESS:
-            return {loading:false,authorinfo:action.payload}
+            return {loading:false,authorinfo:action.payload.author,books:action.payload.books}
         case GET_AUTHOR_DETAILS_FAIL:
             return {loading:false,error:action.payload}
         case GET_AUTHOR_DETAILS_RESET:
