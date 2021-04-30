@@ -75,7 +75,7 @@ const getAuthorInfo = asyncHandler(async(req,res) =>{
 		res.status(400)
 		throw new Error('Author not found')
 	}
-	const books = await Book.find({bookauthor:author._id})
+	const books = await Book.find({bookauthor:author._id,publish:true})
 	.select('-bookdescription -comments -createdAt -updatedAt -__v -file -editorsChoice -downloads -publish -tags -genre -bookauthor');
 	// console.log(books)
 	res.json({

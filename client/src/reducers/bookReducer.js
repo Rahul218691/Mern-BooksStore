@@ -6,7 +6,6 @@ BOOK_FAILED,
 BOOK_REQUEST,
 BOOK_RESET,
 BOOK_EDIT,
-BOOK_SINGLE,
 NEWARRIVAL_REQUEST,
 NEWARRIVAL_SUCCESS,
 NEWARRIVAL_FAIL,
@@ -15,7 +14,10 @@ EDITORS_BOOKS_SUCCESS,
 EDITORS_BOOKS_FAIL,
 CLASSICS_BOOKS_REQUEST,
 CLASSICS_BOOKS_SUCCESS,
-CLASSICS_BOOKS_FAIL
+CLASSICS_BOOKS_FAIL,
+SINGLE_BOOK_REQUEST,
+SINGLE_BOOK_SUCCESS,
+SINGLE_BOOK_FAIL
 } from '../constants/bookConstants';
 
 
@@ -23,7 +25,6 @@ CLASSICS_BOOKS_FAIL
 const initialState = {
     loading:false,
     books:[],
-    book:{},
     error:'',
     currentPage:1,
     pages:0,
@@ -77,12 +78,6 @@ export const booksStoreReducer = (state=initialState,action) =>{
                 loading:false,
                 error:''
             }
-        case BOOK_SINGLE:
-            return{
-                ...state,
-                loading:false,
-                book:action.payload
-            }
         default:
             return state;
     }
@@ -122,6 +117,19 @@ export const classicsBookReducer = (state={},action) =>{
         case CLASSICS_BOOKS_SUCCESS:
             return {loading:false,classics:action.payload}
         case CLASSICS_BOOKS_FAIL:
+            return {loading:false,error:action.payload}
+        default:
+            return state;                     
+    }
+}
+
+export const singleBookReducer = (state={},action) =>{
+    switch(action.type){
+        case SINGLE_BOOK_REQUEST:
+            return {loading:true}
+        case SINGLE_BOOK_SUCCESS:
+            return {loading:false,book:action.payload.book,similarbooks:action.payload.similar}
+        case SINGLE_BOOK_FAIL:
             return {loading:false,error:action.payload}
         default:
             return state;                     

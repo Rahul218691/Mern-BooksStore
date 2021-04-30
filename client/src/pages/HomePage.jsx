@@ -7,6 +7,7 @@ import {fetchFiles} from '../actions/carousalActions';
 import {fetchGenres} from '../actions/genreActions';
 import {fetchBlogs} from '../actions/blogActions';
 import {fetchClassics,fetchEditorsChoice,fetchArrivals} from '../actions/bookActions';
+import {CATBOOK_RESET} from '../constants/catBookConstants';
 
 const HomePage = () => {
 
@@ -25,6 +26,9 @@ const HomePage = () => {
         dispatch(fetchClassics())
         dispatch(fetchEditorsChoice())
         dispatch(fetchArrivals());
+        dispatch({
+            type:CATBOOK_RESET
+        })
     }, [dispatch])
 
     return (

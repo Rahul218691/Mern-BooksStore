@@ -26,11 +26,17 @@ import {
   blogdetailsReducer
 } from './reducers/blogReducers';
 
+
+import {
+  categoryBookReducer
+} from './reducers/catBookReducers';
+
 import {
   booksStoreReducer,
   editorsBookReducer,
   newArrivalsReducer,
-  classicsBookReducer
+  classicsBookReducer,
+  singleBookReducer
 } from './reducers/bookReducer'
 
 const reducer = combineReducers({
@@ -45,7 +51,9 @@ const reducer = combineReducers({
   books:booksStoreReducer,
   newBooks:newArrivalsReducer,
   editorBooks:editorsBookReducer,
-  classicBooks:classicsBookReducer
+  classicBooks:classicsBookReducer,
+  bookInfo:singleBookReducer,
+  categorybooks:categoryBookReducer
 });
 
 

@@ -1,0 +1,4 @@
+export const CATBOOK_FETCH = 'CATBOOK_FETCH';
+export const CATBOOK_REQUEST = 'CATBOOK_REQUEST';
+export const CATBOOK_FAIL = 'CATBOOK_FAIL';
+export const CATBOOK_RESET = 'CATBOOK_RESET';

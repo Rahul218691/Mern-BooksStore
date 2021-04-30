@@ -30,6 +30,7 @@ app.use('/api/genre',require('./routes/genreRoutes'));
 app.use('/api/author',require('./routes/authorRoutes'));
 app.use('/api/blog',require('./routes/blogRoutes'));
 app.use('/api/books',require('./routes/bookRoutes'));
+app.use('/api/category',require('./routes/categoryRoutes'));
 
 app.use(notFound)
 app.use(errorHandler)

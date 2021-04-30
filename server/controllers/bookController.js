@@ -54,6 +54,7 @@ const uploadBook = asyncHandler(async(req,res) =>{
 });
 
 const getSingleBook = asyncHandler(async(req,res) =>{
+	const books = [];
 	const {slug} = req.params;
 	const book = await Book.findOne({bookSlug:slug})
 	.populate('bookauthor','_id name slug')
@@ -62,7 +63,24 @@ const getSingleBook = asyncHandler(async(req,res) =>{
 		res.status(400)
 		throw new Error('Book not found')
 	}
-	res.json(book)
+	const bookId = book._id;
+	const tags = book.tags.split(',');
+	const similarBooks = await Book.find({publish:true})
+	.sort('-createdAt')
+	.populate('genre','_id genreSlug')
+	.select('-bookdescription -comments -file -createdAt -updatedAt -__v -downloads -editorsChoice -tags -bookauthor -publish');
+		
+	for(let i=0;i<tags.length;i++){
+		for(let j=0;j<similarBooks.length;j++){
+			if(tags[i] === similarBooks[j].genre.genreSlug && similarBooks[j]._id.toString() !== bookId.toString()){
+				books.push(similarBooks[j])
+			}
+		}
+	}
+	res.json({
+		book:book,
+		similar:books
+	})
 });
 
 const updateBook = asyncHandler(async(req,res) =>{
@@ -140,7 +158,7 @@ const uploadbookPDF = asyncHandler(async(req,res) =>{
 const editorBooks = asyncHandler(async(req,res) =>{
 	const page = parseInt(req.query.page) || 1;
 	const limit = parseInt(req.query.limit) || 12;
-	const book = await Book.find({editorsChoice:true})
+	const book = await Book.find({editorsChoice:true,publish:true})
 	.skip((limit * page) - limit)
 	.limit(limit)
 	.select('-bookdescription -createdAt -updatedAt -__v -file -comments -tags -downloads')
@@ -158,7 +176,7 @@ const editorBooks = asyncHandler(async(req,res) =>{
 const newBooks = asyncHandler(async(req,res) =>{
 	const page = parseInt(req.query.page) || 1;
 	const limit = parseInt(req.query.limit) || 12;
-	const book = await Book.find({})
+	const book = await Book.find({publish:true})
 	.sort('-createdAt')
 	.skip((limit * page) - limit)
 	.limit(limit)
@@ -176,7 +194,7 @@ const newBooks = asyncHandler(async(req,res) =>{
 
 const classicBooks = asyncHandler(async(req,res) =>{
 	const limit = parseInt(req.query.limit) || 12;
-	const book = await Book.find({})
+	const book = await Book.find({publish:true})
 	.sort('-createdAt')
 	.select('-bookdescription -createdAt -updatedAt -__v -file -comments -tags -downloads')
 	.populate('bookauthor','_id name slug')

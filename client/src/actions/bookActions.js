@@ -7,7 +7,6 @@ import {
 	BOOK_EDIT,
 	BOOK_REQUEST,
 	BOOK_DELETE,
-	BOOK_SINGLE,
   NEWARRIVAL_REQUEST,
   NEWARRIVAL_SUCCESS,
   NEWARRIVAL_FAIL,
@@ -16,7 +15,10 @@ import {
   EDITORS_BOOKS_FAIL,
   CLASSICS_BOOKS_REQUEST,
   CLASSICS_BOOKS_SUCCESS,
-  CLASSICS_BOOKS_FAIL
+  CLASSICS_BOOKS_FAIL,
+  SINGLE_BOOK_REQUEST,
+  SINGLE_BOOK_SUCCESS,
+  SINGLE_BOOK_FAIL
 } from '../constants/bookConstants';
 
 const BASEURL = 'http://localhost:5000/api/books';
@@ -57,7 +59,7 @@ export const fetchBooks = (page,limit) => async (dispatch) => {
 export const fetchBook = (slug) => async (dispatch) => {
     try {
       dispatch({
-        type:BOOK_REQUEST
+        type:SINGLE_BOOK_REQUEST
       });
       
       const config = {
@@ -70,12 +72,12 @@ export const fetchBook = (slug) => async (dispatch) => {
         config
       )
       dispatch({
-        type: BOOK_SINGLE,
+        type: SINGLE_BOOK_SUCCESS,
         payload: data,
       })
     } catch (error) {
       dispatch({
-        type: BOOK_FAILED,
+        type: SINGLE_BOOK_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

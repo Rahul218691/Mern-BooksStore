@@ -3,7 +3,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Card from './Card';
 
-const Similar = () => {
+const Similar = ({similarbooks}) => {
 
 	const responsive = {
 	  superLargeDesktop: {
@@ -29,11 +29,11 @@ const Similar = () => {
 		<div className="similar">
 			<div className="similar__wrapper text-center">
 				<Carousel responsive={responsive}>
-					<Card />
-					<Card />
-					<Card />
-					<Card />
-					<Card />
+					{
+						similarbooks && similarbooks.map((book,i) =>(
+								<Card key={i} data={book}/>
+							))
+					}
 				</Carousel>
 			</div>
 		</div>
