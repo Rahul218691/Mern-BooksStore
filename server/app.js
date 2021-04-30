@@ -20,6 +20,11 @@ if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
 }
 
+// app.use((req, res, next) => {
+//   res.set('Cache-Control', 'no-store')
+//   next()
+// })
+
 app.get('/',(req,res) =>{
    res.send('Api Running successfully')
 })

@@ -8,7 +8,7 @@ import {fetchCatBooks} from '../../actions/catBookActions';
 
 const Category = () => {
 
-	const limitdata = 5;
+	const limitdata = 16;
 	const {category} = useParams();
 	const dispatch = useDispatch();
 	const {books,loading,numOfBooks} = useSelector(state=>state.categorybooks);
@@ -18,6 +18,10 @@ const Category = () => {
 
 	const paginate = (pageNumber) =>{
 		setPagi(pageNumber)
+	}
+
+	const handleChange = (e) =>{
+		dispatch(fetchCatBooks(category,pagi,limitdata,e.target.value))
 	}
 
 	useEffect(() => {
@@ -38,11 +42,11 @@ const Category = () => {
 							<label>Rating</label>					
 						</div>
 						<div className="form-group">
-							<input type="radio" name="sort"/> {" "}
+							<input type="radio" name="sort" value="createdAt" onChange={handleChange}/> {" "}
 							<label>Older</label>					
 						</div>
 						<div className="form-group">
-							<input type="radio" name="sort"/> {" "}
+							<input type="radio" name="sort" value="-createdAt" onChange={handleChange}/> {" "}
 							<label>Latest</label>					
 						</div>
 					</div>

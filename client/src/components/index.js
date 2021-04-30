@@ -17,6 +17,7 @@ export {default as GenreModal} from './modals/GenreModal';
 export {default as AuthorModal} from './modals/AuthorModal';
 export {default as BlogModal} from './modals/BlogModal';
 export {default as BookModal} from './modals/BookModal';
+export {default as AuthModal} from './modals/AuthModal';
 export {default as Loader} from './SmallLoader';
 export {default as Paginate} from './Pagination';
 export {default as PdfViewer} from './PdfViewer';

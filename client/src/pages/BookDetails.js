@@ -1,8 +1,8 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import './styles/BookDetails.css';
 import {Link,useParams} from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
-import {SimilarBooks,Footer,Comment,Loading} from '../components';
+import {SimilarBooks,Footer,Comment,Loading,AuthModal} from '../components';
 import {useSelector,useDispatch} from 'react-redux';
 import {fetchBook} from '../actions/bookActions';
 
@@ -11,12 +11,27 @@ const BookDetails = () => {
 	const {bookslug} = useParams();
 
 	const dispatch = useDispatch();
-	const {book,similarbooks,loading} = useSelector(state=>state.bookInfo)
+	const {book,similarbooks,loading} = useSelector(state=>state.bookInfo);
+	const {userInfo} = useSelector(state=>state.userLogin);
+
+	const [show, setShow] = useState(false)
 
 	useEffect(() => {
 		dispatch(fetchBook(bookslug))
 	}, [dispatch,bookslug])
 
+
+	const handleClose = () =>{
+		setShow(false)
+	}
+
+	const handleOpen = () =>{
+		if(!userInfo){
+			setShow(true)
+		}else{
+			console.log('download file')
+		}
+	}
 
 	return loading ? (<Loading />):(
 		<>
@@ -53,7 +68,7 @@ const BookDetails = () => {
 						</div>
 					</div>
 					<div className="bookdetails__buttons mb-2">
-						<button className="btn downloadbtn"><i className="fas fa-download"></i> Download</button>
+						<button className="btn downloadbtn" onClick={()=>handleOpen()}><i className="fas fa-download"></i> Download</button>
 						<button className="btn readOnline">Read Online</button>
 					</div>
 					{
@@ -72,7 +87,7 @@ const BookDetails = () => {
 					<div className="bookdetails__tags mb-4">
 						{
 							book?.tags.split(',').map((tag,i) =>(
-								<span key={i}><Link to='#' className='btn tags'>{tag}</Link></span>
+								<span key={i}><Link to={`/book/${tag}`} className='btn tags'>{tag}</Link></span>
 							))
 						}
 					</div>
@@ -96,6 +111,7 @@ const BookDetails = () => {
 				</div>
 			</div>
 		</div>
+		<AuthModal show={show} handleClose={handleClose}/>
 		<Footer />
 		</>
 	)
