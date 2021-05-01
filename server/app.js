@@ -11,6 +11,7 @@ const app = express();
 const socketio = require('socket.io');
 const server = http.createServer(app);
 const {addComment} = require('./helpers/dbfunc');
+const nocache = require('nocache')
 
 connectDB();
 app.use(cors());
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(helmet());
 app.use(express.static(path.join(__dirname,'public')));
+app.use(nocache())
 
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
@@ -49,6 +51,7 @@ app.use('/api/category',require('./routes/categoryRoutes'));
 
 io.on('connection',socket=>{
 	socket.on('sendmessage',async(msg)=>{
+        // console.log(msg)
 		const data = await addComment(msg);
 		io.emit('receivemsg',{message:data.message,room:data.slug})
 	})

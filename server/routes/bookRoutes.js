@@ -47,7 +47,7 @@ router.get('/single/:slug',getSingleBook);
 router.get('/editorchoice',editorBooks);
 router.get('/newarrivals',newBooks);
 router.get('/classicbooks',classicBooks);
-router.get('/download/:filename/:bookid',downloadBook);
+router.get('/download/:bookid',downloadBook);
 
 router.post('/addbook',protect,admin,upload.single('evobook'),uploadBook);
 router.post('/uploadfile',protect,admin,upload1.single('bookpdf'),uploadbookPDF);

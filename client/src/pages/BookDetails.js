@@ -5,7 +5,7 @@ import StarRatings from 'react-star-ratings';
 import {SimilarBooks,Footer,Comment,Loading,AuthModal} from '../components';
 import {useSelector,useDispatch} from 'react-redux';
 import {fetchBook} from '../actions/bookActions';
-
+import {downloadBook} from '../utils/api';
 
 const BookDetails = () => {
 
@@ -25,13 +25,32 @@ const BookDetails = () => {
 		setShow(false)
 	}
 
-	const handleOpen = () =>{
+	const handleOpen = (url) =>{
 		if(!userInfo){
 			setShow(true)
 		}else{
-			console.log('download file')
+			const filename =  url.split('/').pop();
+			fetch(url)
+			.then((response) => response.blob())
+			.then((blob) =>{
+				const file = window.URL.createObjectURL(new Blob([blob]));
+				const link = document.createElement('a');
+				link.href = file;
+				link.setAttribute('download',`${filename}`);
+				document.body.appendChild(link);
+				link.click();
+				link.parentNode.removeChild(link);
+				downloadBook(book?._id)
+			})
 		}
 	}
+
+	const rate = book && book?.comments?.reduce((acc,item) => {
+		return acc + item.rating
+	},0);
+
+	const avgRate = rate / (book && book?.comments?.length);
+
 
 	return loading ? (<Loading />):(
 		<>
@@ -59,16 +78,16 @@ const BookDetails = () => {
 						<div className="bookdetails__wrapper">
 							<p className="bookdetails__author">By <Link to={`/author/${book?.bookauthor?.slug}`}>{book?.bookauthor?.name}</Link></p>
 								<StarRatings 
-								rating={4}
+								rating={avgRate ? avgRate : 0}
 								numberOfStars={5}
 								starDimension='20px'
 								starSpacing='0px'
 								starRatedColor='rgb(230, 67, 47)'
-								/> <span className="bookdetails__avgReview">(10 Reviews)</span>
+								/> <span className="bookdetails__avgReview">({book?.comments?.length} Reviews)</span>
 						</div>
 					</div>
 					<div className="bookdetails__buttons mb-2">
-						<button className="btn downloadbtn" onClick={()=>handleOpen()}><i className="fas fa-download"></i> Download</button>
+						<button className="btn downloadbtn" onClick={(e)=>handleOpen(book?.file)}><i className="fas fa-download"></i> Download</button>
 						<button className="btn readOnline">Read Online</button>
 					</div>
 					{

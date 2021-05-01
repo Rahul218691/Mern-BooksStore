@@ -24,6 +24,7 @@ const Comment = ({bookslug,comments}) => {
 	const handleSubmit = (e) =>{
 		e.preventDefault();
 		if(comment){
+			// console.log(comment)
 			socket.emit('sendmessage',{
 				rating,
 				comment,
@@ -52,13 +53,20 @@ const Comment = ({bookslug,comments}) => {
 		// eslint-disable-next-line
 	}, [])
 
+	const rate = comments && comments?.reduce((acc,item) => {
+		return acc + item.rating
+	},0);
+
+	const avgRate = rate / (comments && comments?.length);
+
+
 	return (
 		<div className="comments">
 			<h5 className="text-muted">READERS REVIEWS</h5>
 			<div className="comments__avgrate">
-				<p>Average from (1) Review</p>
+				<p>Average from ({comments?.length}) Review</p>
 				<StarRatings 
-					rating={4}
+					rating={avgRate ? avgRate : 0}
 					numberOfStars={5}
 					starDimension='20px'
 					starSpacing='0px'
@@ -127,7 +135,7 @@ const Comment = ({bookslug,comments}) => {
 						</div>
 					</div>
 					<div className="usercomment">
-						<p>this book was great i love the characters and the details</p>
+						<p>{comment?.comment}</p>
 					</div>
 				</div>
 					))

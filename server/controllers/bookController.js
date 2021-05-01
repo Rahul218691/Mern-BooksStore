@@ -208,17 +208,11 @@ const classicBooks = asyncHandler(async(req,res) =>{
 });
 
 const downloadBook = asyncHandler(async(req,res) =>{
-	const {filename,bookid} = req.params;
-	// const {file} = req.body;
-	if(!filename){
-		res.status(400)
-		throw new Error('File Not Selected')
-	}
-	const location = path.join(__dirname).split('controllers')[0];
+	const {bookid} = req.params;
 	const book = await Book.findById(bookid);
 	book.downloads = book.downloads + 1;
 	await book.save();
-	res.download(`${location}public/books/files/${filename}`);
+	res.json({});
 })
 
 module.exports = {

@@ -14,15 +14,14 @@ export const increamentView = async(slug) =>{
 	}
 }
 
-export const downloadBook = async(file) =>{
+export const downloadBook = async(id) =>{
 	try {
-	 const filename = file.split('files/')[1];
       const config = {
         headers: {
           'Content-Type': 'application/json',
         },
       }	
-      await axios.get(`http://localhost:5000/api/books/download/${filename}`,config);
+      await axios.get(`http://localhost:5000/api/books/download/${id}`,config);
       return true;	
 	} catch(e) {
 		console.log(e.message);
