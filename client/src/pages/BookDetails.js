@@ -6,6 +6,7 @@ import {SimilarBooks,Footer,Comment,Loading,AuthModal} from '../components';
 import {useSelector,useDispatch} from 'react-redux';
 import {fetchBook} from '../actions/bookActions';
 
+
 const BookDetails = () => {
 
 	const {bookslug} = useParams();
@@ -19,7 +20,6 @@ const BookDetails = () => {
 	useEffect(() => {
 		dispatch(fetchBook(bookslug))
 	}, [dispatch,bookslug])
-
 
 	const handleClose = () =>{
 		setShow(false)
@@ -107,7 +107,7 @@ const BookDetails = () => {
 
 			<div className="row mt-4">
 				<div className="col-md-12">
-					<Comment />
+					<Comment bookslug={bookslug} comments={book?.comments}/>
 				</div>
 			</div>
 		</div>

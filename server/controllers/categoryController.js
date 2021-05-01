@@ -10,7 +10,7 @@ const categoryBooks = asyncHandler(async(req,res) =>{
 	const catbooks = await Book.find({tags:{"$regex":slug,"$options":"i"},publish:true})
 	.populate('bookauthor','_id name slug')
 	.populate('genre','_id title genreSlug')
-	.select('-bookdescription -comments -createdAt -updatedAt -__v -file -editorsChoice -publish -downloads -tags')
+	.select('-bookdescription -comments -createdAt -updatedAt -__v -editorsChoice -publish -downloads -tags')
 	.skip((limit * page) - limit)
 	.limit(limit)
 	.sort(sortBy);

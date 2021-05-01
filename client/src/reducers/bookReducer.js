@@ -17,7 +17,8 @@ CLASSICS_BOOKS_SUCCESS,
 CLASSICS_BOOKS_FAIL,
 SINGLE_BOOK_REQUEST,
 SINGLE_BOOK_SUCCESS,
-SINGLE_BOOK_FAIL
+SINGLE_BOOK_FAIL,
+SINGLE_BOOK_COMMENT
 } from '../constants/bookConstants';
 
 
@@ -131,6 +132,15 @@ export const singleBookReducer = (state={},action) =>{
             return {loading:false,book:action.payload.book,similarbooks:action.payload.similar}
         case SINGLE_BOOK_FAIL:
             return {loading:false,error:action.payload}
+        case SINGLE_BOOK_COMMENT:
+            return{
+                ...state,
+                loading:false,
+                book:{
+                    ...state.book,
+                    ...state.book.comments.unshift(action.payload)
+                }
+            }
         default:
             return state;                     
     }

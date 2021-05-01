@@ -74,7 +74,7 @@ export const fetchBook = (slug) => async (dispatch) => {
       dispatch({
         type: SINGLE_BOOK_SUCCESS,
         payload: data,
-      })
+      });
     } catch (error) {
       dispatch({
         type: SINGLE_BOOK_FAIL,

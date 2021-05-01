@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler');
 const Book = require('../models/Books');
 const slugify = require('slugify');
+const path = require('path')
+
 
 const getbooks = asyncHandler(async(req,res) =>{
 	const page = parseInt(req.query.page) || 1;
@@ -58,7 +60,8 @@ const getSingleBook = asyncHandler(async(req,res) =>{
 	const {slug} = req.params;
 	const book = await Book.findOne({bookSlug:slug})
 	.populate('bookauthor','_id name slug')
-	.populate('genre','_id title genreSlug');
+	.populate('genre','_id title genreSlug')
+	.populate('comments.user','_id name profile');
 	if(!book){
 		res.status(400)
 		throw new Error('Book not found')
@@ -202,6 +205,20 @@ const classicBooks = asyncHandler(async(req,res) =>{
 	const filterbooks = book.filter(x=>x.genre.title === 'CLASSICS');
 	const limitArray = filterbooks.splice(0,limit);
 	res.json(limitArray)
+});
+
+const downloadBook = asyncHandler(async(req,res) =>{
+	const {filename,bookid} = req.params;
+	// const {file} = req.body;
+	if(!filename){
+		res.status(400)
+		throw new Error('File Not Selected')
+	}
+	const location = path.join(__dirname).split('controllers')[0];
+	const book = await Book.findById(bookid);
+	book.downloads = book.downloads + 1;
+	await book.save();
+	res.download(`${location}public/books/files/${filename}`);
 })
 
 module.exports = {
@@ -214,5 +231,6 @@ module.exports = {
 	uploadbookPDF,
 	editorBooks,
 	newBooks,
-	classicBooks
+	classicBooks,
+	downloadBook
 }

@@ -10,7 +10,8 @@ const {
     uploadbookPDF,
     editorBooks,
     newBooks,
-    classicBooks
+    classicBooks,
+    downloadBook
 } = require('../controllers/bookController');
 
 
@@ -46,9 +47,11 @@ router.get('/single/:slug',getSingleBook);
 router.get('/editorchoice',editorBooks);
 router.get('/newarrivals',newBooks);
 router.get('/classicbooks',classicBooks);
+router.get('/download/:filename/:bookid',downloadBook);
 
 router.post('/addbook',protect,admin,upload.single('evobook'),uploadBook);
 router.post('/uploadfile',protect,admin,upload1.single('bookpdf'),uploadbookPDF);
+
 
 router.put('/editbook',protect,admin,updateBook);
 router.patch('/publish',protect,admin,bookPublish);
