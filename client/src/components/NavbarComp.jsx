@@ -1,18 +1,27 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Link,withRouter} from 'react-router-dom'
 import Logo from '../images/logo.svg'
 import {logout} from '../actions/authActions';
 import {useSelector,useDispatch} from 'react-redux';
 import './styles/NavbarComp.css';
 
+
 const NavbarComp = ({history}) => {
 
-   const dispatch = useDispatch()
+   const dispatch = useDispatch();
 
-   const {userInfo} = useSelector(state => state.userLogin)
+   const {userInfo} = useSelector(state => state.userLogin);
+   const [term, setTerm] = useState('');
 
    const logoutHandler = () =>{
   	dispatch(logout())
+  }
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    if(term){
+      history.push(`/book/search/${term}`)
+    }
   }
 
 
@@ -51,9 +60,9 @@ const NavbarComp = ({history}) => {
         history.location.pathname !== '/login' && history.location.pathname !== '/register' && (
           <form style={{marginLeft: '34%'}} className="navbar__form">
             <div className="input-group">
-              <input type="text" className="form-control searchInp" placeholder="search book" />
+              <input type="text" className="form-control searchInp" placeholder="search book" value={term} onChange={(e)=>setTerm(e.target.value)}/>
               <div className="input-group-append">
-                <span className="btn btn-primary" id="basic-addon2"><i className="fas fa-search"></i></span>
+                <span className="btn btn-primary" id="basic-addon2" onClick={handleSubmit}><i className="fas fa-search"></i></span>
               </div>
             </div>
           </form>

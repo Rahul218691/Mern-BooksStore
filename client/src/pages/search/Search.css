@@ -1,0 +1,11 @@
+.search__header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search__books{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}

@@ -18,7 +18,11 @@ CLASSICS_BOOKS_FAIL,
 SINGLE_BOOK_REQUEST,
 SINGLE_BOOK_SUCCESS,
 SINGLE_BOOK_FAIL,
-SINGLE_BOOK_COMMENT
+SINGLE_BOOK_COMMENT,
+SEARCH_BOOK_REQUEST,
+SEARCH_BOOK_SUCCESS,
+SEARCH_BOOK_FAIL,
+SEARCH_BOOK_RESET
 } from '../constants/bookConstants';
 
 
@@ -143,5 +147,28 @@ export const singleBookReducer = (state={},action) =>{
             }
         default:
             return state;                     
+    }
+}
+
+export const searchBookReducer = (state={},action) =>{
+    switch (action.type) {
+        case SEARCH_BOOK_REQUEST:
+            return{
+                loading:true
+            }
+        case SEARCH_BOOK_SUCCESS:
+            return{
+                loading:false,
+                books:action.payload
+            }
+        case SEARCH_BOOK_FAIL:
+            return{
+                loading:false,
+                error:action.payload
+            }
+        case SEARCH_BOOK_RESET:
+            return {}
+        default:
+            return state;
     }
 }

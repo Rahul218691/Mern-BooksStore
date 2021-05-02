@@ -213,6 +213,29 @@ const downloadBook = asyncHandler(async(req,res) =>{
 	book.downloads = book.downloads + 1;
 	await book.save();
 	res.json({});
+});
+
+
+const searchBooks = asyncHandler(async(req,res) =>{
+	const {term} = req.params;
+	const sortBy = req.query.sort ? req.query.sort : '-createdAt';
+	let regex =  new RegExp(term,'i');
+	const filtered = await Book.find({publish:true,
+		$and:[
+			{
+				$or:[
+					{
+						booktitle:regex
+					},
+					{
+						tags:regex
+					}
+				]
+			}
+		]
+	}).select('-bookdescription -comments -createdAt -updatedAt -__v -genre -downloads -editorsChoice -file -bookauthor -publish -tags')
+	.sort(sortBy);
+	res.json(filtered)
 })
 
 module.exports = {
@@ -226,5 +249,6 @@ module.exports = {
 	editorBooks,
 	newBooks,
 	classicBooks,
-	downloadBook
+	downloadBook,
+	searchBooks
 }

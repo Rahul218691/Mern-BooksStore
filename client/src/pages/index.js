@@ -12,3 +12,4 @@ export {default as AddAuthor} from './admin/AddAuthor';
 export {default as AddCarousal} from './admin/AddCarousal';
 export {default as Genere} from './admin/Genere';
 export {default as AddBooks} from './admin/AddBooks';
+export {default as Search} from './search/Search';

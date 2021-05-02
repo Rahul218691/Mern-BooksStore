@@ -18,7 +18,10 @@ import {
   CLASSICS_BOOKS_FAIL,
   SINGLE_BOOK_REQUEST,
   SINGLE_BOOK_SUCCESS,
-  SINGLE_BOOK_FAIL
+  SINGLE_BOOK_FAIL,
+  SEARCH_BOOK_REQUEST,
+  SEARCH_BOOK_SUCCESS,
+  SEARCH_BOOK_FAIL,
 } from '../constants/bookConstants';
 
 const BASEURL = 'http://localhost:5000/api/books';
@@ -370,3 +373,34 @@ export const removeBook = (bookid) =>async(dispatch,getState) =>{
       })
     }
   }
+
+export const searchBook = (term,sort) => async (dispatch) => {
+    sort = sort ? sort : '-createdAt';
+    try {
+      dispatch({
+        type:SEARCH_BOOK_REQUEST
+      });
+      
+      const config = {
+        headers: {
+         'Content-Type': 'application/json',
+        },
+      } 
+      const { data } = await axios.get(
+        `${BASEURL}/search/${term}?sort=${sort}`,
+        config
+      )
+      dispatch({
+        type: SEARCH_BOOK_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SEARCH_BOOK_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+}  

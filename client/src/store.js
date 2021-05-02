@@ -36,7 +36,8 @@ import {
   editorsBookReducer,
   newArrivalsReducer,
   classicsBookReducer,
-  singleBookReducer
+  singleBookReducer,
+  searchBookReducer
 } from './reducers/bookReducer'
 
 const reducer = combineReducers({
@@ -53,7 +54,8 @@ const reducer = combineReducers({
   editorBooks:editorsBookReducer,
   classicBooks:classicsBookReducer,
   bookInfo:singleBookReducer,
-  categorybooks:categoryBookReducer
+  categorybooks:categoryBookReducer,
+  searchResults:searchBookReducer
 });
 
 

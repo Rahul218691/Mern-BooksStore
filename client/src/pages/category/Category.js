@@ -34,11 +34,11 @@ const Category = () => {
 					<p>sort by:</p>
 					<div className="category__radiobtn">
 						<div className="form-group">
-							<input type="radio" name="sort"/> {" "}
+							<input type="radio" name="sort" value="-downloads" onChange={handleChange}/> {" "}
 							<label>Popularity</label>
 						</div>
 						<div className="form-group">
-							<input type="radio" name="sort"/> {" "}
+							<input type="radio" name="sort" value="-comments.rating" onChange={handleChange}/> {" "}
 							<label>Rating</label>					
 						</div>
 						<div className="form-group">
