@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import './styles/BookDetails.css';
-import {Link,useParams} from 'react-router-dom';
+import {Link,useParams,useHistory} from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 import {SimilarBooks,Footer,Comment,Loading,AuthModal} from '../components';
 import {useSelector,useDispatch} from 'react-redux';
@@ -11,6 +11,7 @@ const BookDetails = () => {
 
 	const {bookslug} = useParams();
 
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const {book,similarbooks,loading} = useSelector(state=>state.bookInfo);
 	const {userInfo} = useSelector(state=>state.userLogin);
@@ -23,6 +24,15 @@ const BookDetails = () => {
 
 	const handleClose = () =>{
 		setShow(false)
+	}
+
+	const handlePDF = (file) =>{
+		if(!userInfo){
+			setShow(true)
+		}else{
+			localStorage.setItem('file',file);
+			history.push('/file/view');
+		}
 	}
 
 	const handleOpen = (url) =>{
@@ -88,7 +98,7 @@ const BookDetails = () => {
 					</div>
 					<div className="bookdetails__buttons mb-2">
 						<button className="btn downloadbtn" onClick={(e)=>handleOpen(book?.file)}><i className="fas fa-download"></i> Download</button>
-						<button className="btn readOnline">Read Online</button>
+						<button className="btn readOnline" onClick={(e)=>handlePDF(book?.file)}>Read Online</button>
 					</div>
 					{
 						book?.price === 0 ? (

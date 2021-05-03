@@ -2,7 +2,7 @@ import React from 'react'
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import {Home,Login,Register,Dashboard,AdminDashboard,BlogDetail,Author,BookDetails,Category
 ,CreateBlog,AddAuthor,AddCarousal,Genere,AddBooks,Search} from './pages';
-import {Nav,PdfViewer} from './components';
+import {Nav,PdfViewer,AllGenre,AllBlogs} from './components';
 import PrivateRoute from './privateroutes/PrivateRoute';
 import AdminRoute from './privateroutes/AdminPrivate';
 
@@ -27,6 +27,8 @@ const App = () =>{
           <AdminRoute component={AddBooks} path='/admin/addbook' exact/>
           <Route component={PdfViewer} path='/file/view' exact/>
           <Route component={Search} path='/book/search/:searchterm' exact/>
+          <Route component={AllGenre} path='/genre/viewall' exact/>
+          <Route component={AllBlogs} path='/blogs/viewall' exact/>
       </Switch>
     </BrowserRouter>
   );

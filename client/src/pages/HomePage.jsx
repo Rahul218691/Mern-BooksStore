@@ -35,23 +35,23 @@ const HomePage = () => {
     <div className="homepage__container">
      	<Carousal loading={loading} carousal={carousal}/>
      	<section className="container homepage__section">
-     		<p>BROWSE GENRES <Link to='#'>(view all)</Link></p>
+     		<p>BROWSE GENRES <Link to='/genre/viewall'>(view all)</Link></p>
      		<Genres loading={genreloading} genres={genres}/>
      	</section>
      	<section className="container homepage__editorChoice">
-     		<p>EDITOR'S CHOICE <Link to='#'>(view all)</Link></p>
+     		<p>EDITOR'S CHOICE</p>
             <EditorChoice editorsbook={editorsbook}/>
      	</section>
         <section className="container homepage__trending">
-            <p>NEW ARRIVALS <Link to='#'>(view all)</Link></p>
+            <p>NEW ARRIVALS</p>
             <Trending newarrival={newarrival}/>
         </section>
         <section className="container homepage__popular">
-            <p>POPULAR CLASSICS <Link to='#'>(view all)</Link></p>
+            <p>POPULAR CLASSICS</p>
             <Popular classics={classics}/>
         </section>
         <section className="container homepage__blog">
-            <p>FROM THE BLOG <Link to='#'>(view all)</Link></p>
+            <p>FROM THE BLOG <Link to='/blogs/viewall'>(view all)</Link></p>
             <HomeBlog blogs={blogs}/>
         </section>
         <Footer />

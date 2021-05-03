@@ -1,0 +1,21 @@
+/*.react-pdf__Page__svg{
+    width: 100% !important;
+    height: auto !important;
+}
+
+@media only screen and (max-width: 600px) {
+.react-pdf__Page__svg{
+    width: 100% !important;
+    height: 500px !important;
+}
+}*/
+
+
+.disabled{
+	pointer-events: none;
+}
+
+.pageactions > button{
+	outline: none;
+	border: none;
+}

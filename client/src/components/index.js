@@ -21,3 +21,5 @@ export {default as AuthModal} from './modals/AuthModal';
 export {default as Loader} from './SmallLoader';
 export {default as Paginate} from './Pagination';
 export {default as PdfViewer} from './PdfViewer';
+export {default as AllGenre} from './viewall/AllGenre';
+export {default as AllBlogs} from './viewall/AllBlogs';
